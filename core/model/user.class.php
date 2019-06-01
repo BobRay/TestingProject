@@ -2,18 +2,19 @@
 
     class User {
         protected $errors = array();
-        protected $fields = array();
-        public $allowedFields = array('username', 'email', 'phone');
+        protected $fields = array('username' => '', 'email' => '', 'phone' => '');
+        protected $validator = null;
 
     function __construct($fields = array()){
         $x = 1;
+        $this->validator = $this->getValidator();
         if (empty($fields)) {
-            foreach ($this->allowedFields as $field) {
-                $this->fields[$field] = '';
+            foreach ($this->fields as $key => $value) {
+                $this->fields[$key] = '';
             }
         } else {
             foreach($fields as $key => $value) {
-                if (in_array($key, $this->allowedFields)) {
+                if (key_exists($key, $this->fields)) {
                     $this->fields[$key] = $value;
                 } else {
                     $this->addError('Invalid field: ' . $key);
@@ -27,15 +28,21 @@
             : $this;
     }
 
+    public function getValidator() {
+        return null;
+    }
     public function validatePhone($phone) {
         return true;
     }
 
     public function validateEmail($email) {
-        return true;
+        $validator = $this->validator();
+        return $validator->validate('email', $email);
     }
 
-    public function register($fields = array()) {
+    /* Process the User Registration Form */
+    public function registerUser($fields = array()) {
+
 
     }
     public function get($fieldName) {
@@ -54,9 +61,6 @@
         $this->errors[] = $error;
     }
 
-    public function getAllowedFields() {
-        return $this->allowedFields;
-    }
     public function getErrors() {
         return $this->errors;
     }

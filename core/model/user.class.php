@@ -62,7 +62,7 @@
         if (array_key_exists($fieldName, $this->fields)) {
             return $this->fields[$fieldName];
         } else {
-            $this->addError('Unknown Field ' . $fieldName);
+            $this->addError('Unknown Field: ' . $fieldName);
             return null;
         }
     }

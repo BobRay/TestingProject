@@ -3,7 +3,7 @@
 
 use Codeception\Util\Stub;
 
-require_once 'c:/xampp/htdocs/addons/vendor/autoload.php';
+// require_once 'c:/xampp/htdocs/addons/vendor/autoload.php';
 
 class userTest extends \Codeception\Test\Unit
 
@@ -63,7 +63,7 @@ class userTest extends \Codeception\Test\Unit
 
     /** @throws Exception */
     public function testConstructorBadEmailOnly() {
-        $stub = $this->getMockBuilder('User')
+        /*$stub = $this->getMockBuilder('User')
             ->setMethods(array(
                 'validateEmail',
                 'validateUsername',
@@ -87,39 +87,21 @@ class userTest extends \Codeception\Test\Unit
             'username' => 'Bobby',
             'email' => 'bob@hotmail.com',
             'phone' => '218-651-1234'
+        ));*/
+        $stub =  $this->make(User::class, ['validateEmail' => function() { return false;},
+            'validateUsername' => function() { return false;},
+            'validatePhone' => function() { return false;}
+            ]);
+
+        $stub->__construct(array(
+            'username' => 'Bobby',
+            'email' => 'bob@hotmail.com',
+            'phone' => '218-651-1234'
         ));
 
-/* https://stackoverflow.com/questions/5546806/stubbing-a-method-called-by-a-class-constructor */
-        /*$stub = $this->getMockBuilder('User')
-            ->setMethods(array('validatePhone'))
-            ->setConstructorArgs(array(array(
-                'username' => 'Bobby',
-                'email' => 'bob@hotmail.com',
-                'phone' => '218-651-1234')))
-            ->getMock();
-        $stub->expects($this->any())
-            ->method('validatePhone')
-            ->will($this->returnValue(false));*/
-       /* $params = [
-            'username' => 'x',
-            'email' => 'bob@hotmail.com',
-            'phone' =>  2,
-        ];
-        $methods = [
-            'validateEmail' => false,
-            'validateUsername' => true,
-            'validatePhone' => true,
-        ];*/
 
-//        $user = $this->construct('User', [
-//            ['username' => 'Bobby',
-//            'email' => 'bob@hotmail.com',
-//            'phone' => '218-651-1234'],
-//        ],[
-//            'validatePhone' => function () {return true;}]
-//        );
-       //  assertTrue($user->hasErrors(), print_r($user->getErrors()));
-       // assertTrue(false, print_r($user->getErrors(), true));
+
+/* https://stackoverflow.com/questions/5546806/stubbing-a-method-called-by-a-class-constructor */
         assertTrue($stub->hasErrors());
         assertTrue(false, print_r($stub->getErrors(), true));
 

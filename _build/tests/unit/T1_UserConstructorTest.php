@@ -1,6 +1,6 @@
 <?php
 
-class T1_UserTest extends \Codeception\Test\Unit {
+class T1_UserConstructorTest extends \Codeception\Test\Unit {
     /**
      * @var \UnitTester
      */

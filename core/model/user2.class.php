@@ -1,6 +1,6 @@
 <?php
 
-    class User {
+    class User2 {
         protected $errors = array();
         protected $fields = array(
             'username' => '',

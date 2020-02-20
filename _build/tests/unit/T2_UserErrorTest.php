@@ -63,7 +63,7 @@ class userErrorTest extends \Codeception\Test\Unit {
             'email' => $this->validEmail,
             'phone' => $this->validPhone,
         );
-        $user = new User($fields);
+        $user = new User2($fields);
         assertFalse($user->hasErrors());
         $errors = $user->getErrors();
         assertEmpty($errors);
@@ -76,7 +76,7 @@ class userErrorTest extends \Codeception\Test\Unit {
             'email' => $this->validEmail,
             'phone' => $this->validPhone,
         );
-        $user = new User($fields);
+        $user = new User2($fields);
         assertTrue($user->hasErrors());
         $errors = $user->getErrors();
         assertNotEmpty($errors);
@@ -89,7 +89,7 @@ class userErrorTest extends \Codeception\Test\Unit {
             'email' => $this->validEmail,
             'phone' => $this->validPhone,
         );
-        $user = new User($fields);
+        $user = new User2($fields);
         assertTrue($user->hasErrors());
         $errors = $user->getErrors();
         assertNotEmpty($errors);
@@ -103,7 +103,7 @@ class userErrorTest extends \Codeception\Test\Unit {
             'email' => $this->invalidEmail,
             'phone' => $this->validPhone,
         );
-        $user = new User($fields);
+        $user = new User2($fields);
         assertTrue($user->hasErrors());
         $errors = $user->getErrors();
         assertNotEmpty($errors);
@@ -117,7 +117,7 @@ class userErrorTest extends \Codeception\Test\Unit {
             'email' => $this->validEmail,
             'phone' => $this->invalidPhone,
         );
-        $user = new User($fields);
+        $user = new User2($fields);
         assertTrue($user->hasErrors());
         $errors = $user->getErrors();
         assertNotEmpty($errors);

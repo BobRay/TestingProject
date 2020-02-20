@@ -30,7 +30,7 @@ class userErrorTest extends \Codeception\Test\Unit {
 
     /** @throws /Exception */
     public function testValidateUsername() {
-        $user = Stub::makeEmptyExcept('User', 'validateUsername');
+        $user = Stub::makeEmptyExcept('User2', 'validateUsername');
         $result = $user->validateUsername($this->validUsername);
         assertTrue($result);
         $result = $user->validateUsername($this->invalidUsernameTooShort);
@@ -41,7 +41,7 @@ class userErrorTest extends \Codeception\Test\Unit {
 
     /** @throws /Exception */
     public function testValidateEmail() {
-        $user = Stub::makeEmptyExcept('User', 'validateEmail');
+        $user = Stub::makeEmptyExcept('User2', 'validateEmail');
         $result = $user->validateEmail($this->validEmail);
         assertTrue($result);
         $result = $user->validateEmail($this->invalidEmail);
@@ -50,7 +50,7 @@ class userErrorTest extends \Codeception\Test\Unit {
 
     /** @throws /Exception */
     public function testValidatePhone() {
-        $user = Stub::makeEmptyExcept('User', 'validatePhone');
+        $user = Stub::makeEmptyExcept('User2', 'validatePhone');
         $result = $user->validatePhone($this->validPhone);
         assertTrue($result);
         $result = $user->validatePhone($this->invalidPhone);

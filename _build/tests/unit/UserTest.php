@@ -46,12 +46,12 @@ class userTest extends \Codeception\Test\Unit
 
     public function testConstructorWithArguments() {
         $user = new User(array(
-            'username' => 'bob',
+            'username' => 'BobRay',
             'email' => 'bobray@hotmail.com',
             'phone' => '218-456-1234'
         ));
         assertInstanceOf('User', $user);
-        assertEquals('bob', $user->get('username'));
+        assertEquals('BobRay', $user->get('username'));
         assertEquals('bobray@hotmail.com', $user->get('email'));
         assertEquals('218-456-1234', $user->get('phone'));
         assertFalse($user->hasErrors());

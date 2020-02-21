@@ -26,7 +26,8 @@ class Validator {
      * @return bool
      */
     public function validateUsername($name) {
-        return (bool) (strlen($name) < 50);
+        return (bool) (strlen($name) < 50) &&
+            (strlen($name) >= 3);
     }
 
     /**

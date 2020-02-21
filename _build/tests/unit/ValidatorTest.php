@@ -19,6 +19,14 @@ class ValidatorTest extends \Codeception\Test\Unit
     {
     }
 
+    /**
+     * @dataProvider usernameProvider
+     * @param string $username
+     * @param bool $expected
+     */
+    public function testUsernameValidator($username, $expected) {
+        assertEquals($expected, $this->validator->validateUsername($username), $username);
+    }
 
     /**
      * @dataProvider emailProvider
@@ -36,6 +44,18 @@ class ValidatorTest extends \Codeception\Test\Unit
      */
     public function testPhoneValidator($phone, $expected) {
         assertEquals($expected, $this->validator->validatePhone($phone), $phone);
+    }
+
+    public function usernameProvider() {
+        return array(
+            /* Valid */
+            array('Bob', true),
+            array('CaptainMarvel', true),
+
+            /* Invalid */
+            array('Bo', false),
+            array('asdljkasdlkjasdlkjasldkjasldkjasldkjasldkjasldkjasldkjasldkjasdlkj', false),
+        );
     }
 
     public function emailProvider() {

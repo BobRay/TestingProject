@@ -76,7 +76,7 @@
      */
     public function validateUsername($username) {
         return (bool)(
-            (strlen($username) <= 50) &&
+            (strlen($username) <= 25) &&
             (strlen($username) >= 3)
         );
     }

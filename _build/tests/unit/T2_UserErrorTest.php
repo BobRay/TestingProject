@@ -10,8 +10,7 @@ class userErrorTest extends \Codeception\Test\Unit {
     protected $validUsername = 'BobRay';
     protected $invalidUsernameTooShort = 'Bo';
     protected $invalidUsernameTooLong =
-        'asda sdada sdasdasd adasdasda' .
-        'sdasda sdadadadad asdasdad';
+        'asdasdadasdasdasdadasdssss';
     protected $validEmail = 'bobray@hotmail.com';
     protected $invalidEmail = 'bobrayhotmail.com';
     protected $validPhone = '218-143-2345';

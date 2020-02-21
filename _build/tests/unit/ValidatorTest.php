@@ -54,7 +54,7 @@ class ValidatorTest extends \Codeception\Test\Unit
 
             /* Invalid */
             array('Bo', false),
-            array('asdljkasdlkjasdlkjasldkjasldkjasldkjasldkjasldkjasldkjasldkjasdlkj', false),
+            array('asdljkasdlkjasdlkjasldkjasl', false),
         );
     }
 

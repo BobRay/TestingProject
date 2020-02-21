@@ -1,9 +1,5 @@
 <?php
-//use PHPUnit\Framework\TestCase;
-
 use Codeception\Util\Stub;
-
-// require_once 'c:/xampp/htdocs/addons/vendor/autoload.php';
 
 class userTest extends \Codeception\Test\Unit
 
@@ -103,7 +99,7 @@ class userTest extends \Codeception\Test\Unit
 
 /* https://stackoverflow.com/questions/5546806/stubbing-a-method-called-by-a-class-constructor */
         assertTrue($stub->hasErrors());
-        assertTrue(false, print_r($stub->getErrors(), true));
+//        assertTrue(false, print_r($stub->getErrors(), true));
 
 
     }

@@ -18,6 +18,6 @@ class T0_PlatformTest extends \Codeception\Test\Unit
     /* Tests */
     public function testWorking()
     {
-        assertTrue(false);
+        assertTrue(true);
     }
 }

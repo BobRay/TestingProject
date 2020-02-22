@@ -9,6 +9,11 @@ class T4_UserTest extends \Codeception\Test\Unit {
      */
     protected $tester;
     protected $validator;
+    protected $fields = array(
+        'username' => 'Robert',
+        'email' => 'bobray@hotmail.com',
+        'phone' => '218-456-1234'
+    );
 
     protected function _before() {
         require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/core/model/user4.class.php';
@@ -24,7 +29,7 @@ class T4_UserTest extends \Codeception\Test\Unit {
 
     /** @throws Exception */
     public function testConstructorWithArguments() {
-        $stub = $this->make(Validator::class,
+        $validator = $this->make(Validator::class,
             array(
                 'validateUsername' => function () {
                     return true;
@@ -37,11 +42,7 @@ class T4_UserTest extends \Codeception\Test\Unit {
                 },
 
             ));
-        $user = new User4($stub, array(
-            'username' => 'Robert',
-            'email' => 'bobray@hotmail.com',
-            'phone' => '218-456-1234'
-        ));
+        $user = new User4($validator, $this->fields);
         assertInstanceOf('User4', $user);
         assertEquals('Robert', $user->get('username'));
         assertEquals('bobray@hotmail.com', $user->get('email'));
@@ -51,20 +52,8 @@ class T4_UserTest extends \Codeception\Test\Unit {
 
     /** @throws Exception */
     public function testConstructorNoArguments() {
-        $stub = $this->make(Validator::class,
-            array(
-                'validateUsername' => function () {
-                    return true;
-                },
-                'validateEmail' => function () {
-                    return true;
-                },
-                'validatePhone' => function () {
-                    return true;
-                },
-
-            ));;
-        $user = new User4($stub);
+        $validator = $this->make(Validator::class,$this->fields);;
+        $user = new User4($validator);
         assertEquals('', $user->get('username'));
         assertEquals('', $user->get('email'));
         assertEquals('', $user->get('phone'));
@@ -73,7 +62,7 @@ class T4_UserTest extends \Codeception\Test\Unit {
 
     /** @throws Exception */
     public function testConstructorAllBad() {
-        $stub =  $this->make(Validator::class,
+        $validator =  $this->make(Validator::class,
             array(
                 'validateUsername' => function () {
                     return false;
@@ -85,13 +74,9 @@ class T4_UserTest extends \Codeception\Test\Unit {
                     return false;
                 },
             ));
-
-        $user = new User4($stub, array(
-            'username' => 'Bobby',
-            'email' => 'bob@hotmail.com',
-            'phone' => '218-651-1234',
-            'invalidField' => '',
-        ) );
+        $fields = $this->fields;
+        $fields['invalidField'] = '';
+        $user = new User4($validator, $fields);
 
         assertTrue($user->hasErrors());
         $errors = $user->getErrors();
@@ -104,7 +89,7 @@ class T4_UserTest extends \Codeception\Test\Unit {
 
     /** @throws Exception */
     public function testConstructorAllGood() {
-        $stub = $this->make(Validator::class,
+        $validator = $this->make(Validator::class,
             array(
                 'validateUsername' => function () {
                     return true;
@@ -118,11 +103,7 @@ class T4_UserTest extends \Codeception\Test\Unit {
 
             ));
 
-        $user = new User4($stub, array(
-            'username' => 'Bobby',
-            'email' => 'bob@hotmail.com',
-            'phone' => '218-651-1234',
-        ));
+        $user = new User4($validator, $this->fields);
 
         assertFalse($user->hasErrors());
         $errors = $user->getErrors();
@@ -132,7 +113,7 @@ class T4_UserTest extends \Codeception\Test\Unit {
         /** @throws Exception */
     public function testConstructorBadUsernameOnly() {
 
-        $stub =  $this->make(Validator::class,
+        $validator =  $this->make(Validator::class,
             array(
                 'validateUsername' => function () {
                     return false;
@@ -145,11 +126,7 @@ class T4_UserTest extends \Codeception\Test\Unit {
                 }
             ));
 
-        $user = new User4($stub, array(
-            'username' => 'Bobby',
-            'email' => 'bob@hotmail.com',
-            'phone' => '218-651-1234'
-        ));
+        $user = new User4($validator, $this->fields);
 
         assertTrue($user->hasErrors());
         $errors = $user->getErrors();
@@ -161,7 +138,7 @@ class T4_UserTest extends \Codeception\Test\Unit {
     /** @throws Exception */
     public function testConstructorBadEmailOnly() {
 
-        $stub =  $this->make(Validator::class,
+        $validator =  $this->make(Validator::class,
             array(
                 'validateEmail' => function () {
                     return false;
@@ -174,11 +151,7 @@ class T4_UserTest extends \Codeception\Test\Unit {
                 },
             ));
 
-        $user = new User4($stub, array(
-            'username' => 'Bobby',
-            'email' => 'bob@hotmail.com',
-            'phone' => '218-651-1234'
-        ));
+        $user = new User4($validator, $this->fields);
 
 
         assertTrue($user->hasErrors());
@@ -189,7 +162,7 @@ class T4_UserTest extends \Codeception\Test\Unit {
 
     /** @throws Exception */
     public function testConstructorBadPhoneOnly() {
-        $stub =  $this->make(Validator::class,
+        $validator =  $this->make(Validator::class,
             array(
                 'validateEmail' => function () {
                     return true;
@@ -202,11 +175,7 @@ class T4_UserTest extends \Codeception\Test\Unit {
                 },
             ));
 
-        $user = new User4($stub, array(
-            'username' => 'Bobby',
-            'email' => 'bob@hotmail.com',
-            'phone' => '218-651-1234'
-        ));
+        $user = new User4($validator, $this->fields);
 
         assertTrue($user->hasErrors());
         $errors = $user->getErrors();
@@ -217,7 +186,7 @@ class T4_UserTest extends \Codeception\Test\Unit {
     /** @throws Exception */
     public function testConstructorUnknownFieldOnly() {
 
-        $stub =  $this->make(Validator::class,
+        $validator =  $this->make(Validator::class,
             array(
                 'validateEmail' => function () {
                     return true;
@@ -230,12 +199,9 @@ class T4_UserTest extends \Codeception\Test\Unit {
                 },
             ));
 
-        $user = new User4($stub, array(
-            'username' => 'Bobby',
-            'email' => 'bob@hotmail.com',
-            'phone' => '218-651-1234',
-            'invalidField' => '',
-        ));
+        $fields = $this->fields;
+        $fields['invalidField'] = '';
+        $user = new User4($validator, $fields);
 
         assertTrue($user->hasErrors());
         $errors = $user->getErrors();

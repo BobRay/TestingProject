@@ -43,7 +43,7 @@ class T3_UserTest extends \Codeception\Test\Unit {
 
     /** @throws Exception */
     public function testConstructorAllBad() {
-        $stub =  $this->make(User3::class,
+        $user =  $this->make(User3::class,
             array(
                 'validateUsername' => function () {
                     return false;
@@ -56,14 +56,14 @@ class T3_UserTest extends \Codeception\Test\Unit {
                 },
             ));
 
-        $stub->__construct(array(
+        $user->__construct(array(
             'username' => 'Bobby',
             'email' => 'bob@hotmail.com',
             'phone' => '218-651-1234',
             'invalidField' => '',
         ));
-        assertTrue($stub->hasErrors());
-        $errors = $stub->getErrors();
+        assertTrue($user->hasErrors());
+        $errors = $user->getErrors();
         assertEquals(4, count($errors));
         assertContains('Invalid username', $errors);
         assertContains('Invalid email', $errors);
@@ -73,7 +73,7 @@ class T3_UserTest extends \Codeception\Test\Unit {
 
     /** @throws Exception */
     public function testConstructorAllGood() {
-        $stub = $this->make(User3::class,
+        $user = $this->make(User3::class,
             array(
                 'validateUsername' => function () {
                     return true;
@@ -87,20 +87,20 @@ class T3_UserTest extends \Codeception\Test\Unit {
 
             ));
 
-        $stub->__construct(array(
+        $user->__construct(array(
             'username' => 'Bobby',
             'email' => 'bob@hotmail.com',
             'phone' => '218-651-1234',
         ));
-        assertFalse($stub->hasErrors());
-        $errors = $stub->getErrors();
+        assertFalse($user->hasErrors());
+        $errors = $user->getErrors();
         assertEmpty($errors);
     }
 
         /** @throws Exception */
     public function testConstructorBadUsernameOnly() {
 
-        $stub =  $this->make(User3::class,
+        $user =  $this->make(User3::class,
             array(
                 'validateUsername' => function () {
                     return false;
@@ -113,14 +113,14 @@ class T3_UserTest extends \Codeception\Test\Unit {
                 }
             ));
 
-        $stub->__construct(array(
+        $user->__construct(array(
             'username' => 'Bobby',
             'email' => 'bob@hotmail.com',
             'phone' => '218-651-1234'
         ));
 
-        assertTrue($stub->hasErrors());
-        $errors = $stub->getErrors();
+        assertTrue($user->hasErrors());
+        $errors = $user->getErrors();
         assertEquals(1, count($errors));
         assertContains('Invalid username', $errors);
     }
@@ -129,7 +129,7 @@ class T3_UserTest extends \Codeception\Test\Unit {
     /** @throws Exception */
     public function testConstructorBadEmailOnly() {
 
-        $stub =  $this->make(User3::class,
+        $user =  $this->make(User3::class,
             array(
                 'validateEmail' => function () {
                     return false;
@@ -142,21 +142,21 @@ class T3_UserTest extends \Codeception\Test\Unit {
                 },
             ));
 
-        $stub->__construct(array(
+        $user->__construct(array(
             'username' => 'Bobby',
             'email' => 'bob@hotmail.com',
             'phone' => '218-651-1234'
         ));
 
-        assertTrue($stub->hasErrors());
-        $errors = $stub->getErrors();
+        assertTrue($user->hasErrors());
+        $errors = $user->getErrors();
         assertEquals(1, count($errors));
         assertContains('Invalid email', $errors);
     }
 
     /** @throws Exception */
     public function testConstructorBadPhoneOnly() {
-        $stub =  $this->make(User3::class,
+        $user =  $this->make(User3::class,
             array(
                 'validateEmail' => function () {
                     return true;
@@ -169,14 +169,14 @@ class T3_UserTest extends \Codeception\Test\Unit {
                 },
             ));
 
-        $stub->__construct(array(
+        $user->__construct(array(
             'username' => 'Bobby',
             'email' => 'bob@hotmail.com',
             'phone' => '218-651-1234'
         ));
 
-        assertTrue($stub->hasErrors());
-        $errors = $stub->getErrors();
+        assertTrue($user->hasErrors());
+        $errors = $user->getErrors();
         assertEquals(1, count($errors));
         assertContains('Invalid phone', $errors);
     }
@@ -184,7 +184,7 @@ class T3_UserTest extends \Codeception\Test\Unit {
     /** @throws Exception */
     public function testConstructorUnknownFieldOnly() {
 
-        $stub =  $this->make(User3::class,
+        $user =  $this->make(User3::class,
             array(
                 'validateEmail' => function () {
                     return true;
@@ -197,15 +197,15 @@ class T3_UserTest extends \Codeception\Test\Unit {
                 },
             ));
 
-        $stub->__construct(array(
+        $user->__construct(array(
             'username' => 'Bobby',
             'email' => 'bob@hotmail.com',
             'phone' => '218-651-1234',
             'invalidField' => '',
         ));
 
-        assertTrue($stub->hasErrors());
-        $errors = $stub->getErrors();
+        assertTrue($user->hasErrors());
+        $errors = $user->getErrors();
         assertEquals(1, count($errors));
         assertContains('Unknown field', $errors);
     }

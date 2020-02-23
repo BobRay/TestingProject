@@ -10,7 +10,7 @@ class T4_UserTest extends \Codeception\Test\Unit {
     protected $tester;
     protected $validator;
     protected $fields = array(
-        'username' => 'Robert',
+        'username' => 'BobRay',
         'email' => 'bobray@hotmail.com',
         'phone' => '218-456-1234'
     );
@@ -40,11 +40,10 @@ class T4_UserTest extends \Codeception\Test\Unit {
                 'validatePhone' => function () {
                     return true;
                 },
-
             ));
         $user = new User4($validator, $this->fields);
         assertInstanceOf('User4', $user);
-        assertEquals('Robert', $user->get('username'));
+        assertEquals('BobRay', $user->get('username'));
         assertEquals('bobray@hotmail.com', $user->get('email'));
         assertEquals('218-456-1234', $user->get('phone'));
         assertFalse($user->hasErrors());

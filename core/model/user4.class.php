@@ -2,6 +2,7 @@
 
     class User4 {
         protected $errors = array();
+        /** @var Validator $validator */
         protected $validator = null;
         protected $fields = array(
             'username' => '',
@@ -22,17 +23,17 @@
         $errorMsg = '';
         switch($fieldName) {
             case 'username':
-                $valid = $this->validateUsername($value);
+                $valid = $this->validator->validateUsername($value);
                 $errorMsg = 'Invalid username';
                 break;
 
             case 'email':
-                $valid = $this->validateEmail($value);
+                $valid = $this->validator->validateEmail($value);
                 $errorMsg = 'Invalid email';
                 break;
 
             case 'phone':
-                $valid = $this->validatePhone($value);
+                $valid = $this->validator->validatePhone($value);
                 $errorMsg = 'Invalid phone';
                 break;
 
@@ -57,18 +58,6 @@
         }
     }
 
-    public function validateUsername($username) {
-        return $this->validator->validateUsername($username);
-    }
-
-    public function validateEmail($email) {
-        return $this->validator->validateEmail($email);
-    }
-
-    public function validatePhone($phone) {
-        return $this->validator->validatePhone($phone);
-    }
-
     public function save($user) {
         return true;
     }
@@ -87,9 +76,4 @@
     public function hasErrors() {
         return !empty($this->errors);
     }
-
-
-
-
-
 }

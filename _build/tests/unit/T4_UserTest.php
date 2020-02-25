@@ -129,7 +129,7 @@ class T4_UserTest extends \Codeception\Test\Unit {
 
         assertTrue($user->hasErrors());
         $errors = $user->getErrors();
-        assertEquals(1, count($errors));
+        assertEquals(1, count($errors), print_r($errors, true));
         assertContains('Invalid username', $errors);
     }
 

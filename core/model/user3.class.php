@@ -89,9 +89,4 @@
     public function hasErrors() {
         return !empty($this->errors);
     }
-
-
-
-
-
 }

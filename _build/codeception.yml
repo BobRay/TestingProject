@@ -17,8 +17,11 @@ settings:
 
 coverage:
     enabled: true
+    low_limit: 35
+    high_limit: 70
+
     include:
-       # - tests/unit/*
+        - tests/unit/*
         - ../core/model/*
     exclude:
         - tests/unit/_bootstrap.php

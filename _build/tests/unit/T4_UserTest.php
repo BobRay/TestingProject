@@ -79,7 +79,7 @@ class T4_UserTest extends \Codeception\Test\Unit {
 
         assertTrue($user->hasErrors());
         $errors = $user->getErrors();
-        assertEquals(4, count($errors));
+        assertEquals(4, count($errors), print_r($errors, true));
         assertContains('Invalid username', $errors);
         assertContains('Invalid email', $errors);
         assertContains('Invalid phone', $errors);
@@ -155,7 +155,7 @@ class T4_UserTest extends \Codeception\Test\Unit {
 
         assertTrue($user->hasErrors());
         $errors = $user->getErrors();
-        assertEquals(1, count($errors));
+        assertEquals(1, count($errors), print_r($errors, true));
         assertContains('Invalid email', $errors);
     }
 
@@ -178,7 +178,7 @@ class T4_UserTest extends \Codeception\Test\Unit {
 
         assertTrue($user->hasErrors());
         $errors = $user->getErrors();
-        assertEquals(1, count($errors));
+        assertEquals(1, count($errors), print_r($errors, true));
         assertContains('Invalid phone', $errors);
     }
 
@@ -204,7 +204,7 @@ class T4_UserTest extends \Codeception\Test\Unit {
 
         assertTrue($user->hasErrors());
         $errors = $user->getErrors();
-        assertEquals(1, count($errors));
+        assertEquals(1, count($errors), print_r($errors, true));
         assertContains('Unknown field', $errors);
     }
 }

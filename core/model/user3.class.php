@@ -71,7 +71,7 @@
         return $this->validator->validatePhone($phone);
     }
 
-    public function save($user) {
+    public function save() {
         return true;
     }
 

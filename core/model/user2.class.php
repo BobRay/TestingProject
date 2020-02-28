@@ -107,7 +107,7 @@
      * @param $user
      * @return bool
      */
-    public function save($user) {
+    public function save() {
         return true;
     }
 

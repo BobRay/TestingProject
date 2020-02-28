@@ -58,7 +58,7 @@
         }
     }
 
-    public function save($user) {
+    public function save() {
         return true;
     }
 

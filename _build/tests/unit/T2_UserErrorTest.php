@@ -1,7 +1,7 @@
 <?php
 use \Codeception\Stub;
 
-class userErrorTest extends \Codeception\Test\Unit {
+class T2_userErrorTest extends \Codeception\Test\Unit {
 
     /**
      * @var $tester \UnitTester
@@ -13,7 +13,7 @@ class userErrorTest extends \Codeception\Test\Unit {
         'asdasdadasdasdasdadasdssss';
     protected $validEmail = 'bobray@hotmail.com';
     protected $invalidEmail = 'bobrayhotmail.com';
-    protected $validPhone = '218-143-2345';
+    protected $validPhone = '218-456-2345';
     protected $invalidPhone = '218x123x2345';
 
     protected function _before() {

@@ -108,6 +108,7 @@ class ValidatorTest extends \Codeception\Test\Unit
             array('1.234.567.8901', true),
             array('12345678901', true),
             array('2345678901', true),
+            array('218-243-2345', true),
 
             /* Invalid */
             array('12345', false),
@@ -120,6 +121,7 @@ class ValidatorTest extends \Codeception\Test\Unit
             array('(1234) 123-1234', false),
             array('911', false),
             array('411', false),
+            array('218-123-2345', false),
         );
 
     }

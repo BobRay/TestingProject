@@ -2,7 +2,7 @@
 
 use Codeception\Util\Stub;
 
-class T4_UserTest extends \Codeception\Test\Unit {
+class T4_UserDependencyInjectionTest extends \Codeception\Test\Unit {
 
     /**
      * @var \UnitTester

@@ -2,7 +2,7 @@
 
 use Codeception\Util\Stub;
 
-class T3_UserTest extends \Codeception\Test\Unit {
+class T3_UserErrorMessageTest extends \Codeception\Test\Unit {
 
     /**
      * @var \UnitTester

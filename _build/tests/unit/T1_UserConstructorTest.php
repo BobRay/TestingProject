@@ -18,7 +18,7 @@ class T1_UserConstructorTest extends \Codeception\Test\Unit {
         assertTrue(true);
     }
 
-    public function testConstructorWithArguments() {
+    public function testConstructorWithParams() {
         $user = new User1(array(
             'username' => 'BobRay',
             'email' => 'bobray@hotmail.com',
@@ -30,7 +30,7 @@ class T1_UserConstructorTest extends \Codeception\Test\Unit {
         assertEquals('651-423-1548', $user->get('phone'));
     }
 
-    public function testConstructorNoArguments() {
+    public function testConstructorNoParams() {
         $user = new User1();
         assertInstanceOf('User1', $user);
         assertEquals('', $user->get('username'));

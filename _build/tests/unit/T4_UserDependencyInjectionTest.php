@@ -28,7 +28,7 @@ class T4_UserDependencyInjectionTest extends \Codeception\Test\Unit {
     }
 
     /** @throws Exception */
-    public function testConstructorWithArguments() {
+    public function testConstructorWithParams() {
         $validator = $this->make(Validator::class,
             array(
                 'validateUsername' => function () {
@@ -50,7 +50,7 @@ class T4_UserDependencyInjectionTest extends \Codeception\Test\Unit {
     }
 
     /** @throws Exception */
-    public function testConstructorNoArguments() {
+    public function testConstructorNoParams() {
         $validator = $this->make(Validator::class,$this->fields);;
         $user = new User4($validator);
         assertEquals('', $user->get('username'));

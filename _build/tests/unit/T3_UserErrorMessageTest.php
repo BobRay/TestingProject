@@ -20,7 +20,7 @@ class T3_UserErrorMessageTest extends \Codeception\Test\Unit {
         assertTrue(true);
     }
 
-    public function testConstructorWithArguments() {
+    public function testConstructorWithParams() {
         $user = new User3(array(
             'username' => 'Robert',
             'email' => 'bobray@hotmail.com',
@@ -33,7 +33,7 @@ class T3_UserErrorMessageTest extends \Codeception\Test\Unit {
         assertFalse($user->hasErrors());
     }
 
-    public function testConstructorNoArguments() {
+    public function testConstructorNoParams() {
         $user = new User3();
         assertEquals('', $user->get('username'));
         assertEquals('', $user->get('email'));

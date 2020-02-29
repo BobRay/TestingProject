@@ -31,7 +31,7 @@ class T6_UserTest extends \Codeception\Test\Unit
     }
 
     /** @throws Exception */
-    public function testConstructorWithArguments() {
+    public function testConstructorWithParams() {
         $validator = $this->validator;
         $user = new User4($validator, $this->fields);
         assertInstanceOf('User4', $user);
@@ -50,7 +50,7 @@ class T6_UserTest extends \Codeception\Test\Unit
     }
 
     /** @throws Exception */
-    public function testConstructorNoArguments() {
+    public function testConstructorNoParams() {
         $validator = $this->make(Validator::class, $this->fields);;
         $user = new User4($validator);
         assertinstanceof('User4', $user);

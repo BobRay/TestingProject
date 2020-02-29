@@ -30,16 +30,47 @@ class T6_UserTest extends \Codeception\Test\Unit
         assertTrue(true);
     }
 
+    /** @throws Exception */
+    public function testConstructorWithArguments() {
+        $validator = $this->validator;
+        $user = new User4($validator, $this->fields);
+        assertInstanceOf('User4', $user);
+        assertEquals('BobRay', $user->get('username'));
+        assertEquals('bobray@hotmail.com', $user->get('email'));
+        assertEquals('218-456-1234', $user->get('phone'));
+        assertFalse($user->hasErrors());
+        $result = $user->get('unknown');
+        assertTrue($user->hasErrors());
+        assertNull($result);
+        $errors = $user->getErrors();
+        assertEquals(1, count ($errors));
+        assertContains('Unknown Field: ' . 'unknown', $errors, print_r($errors, true));
+        $user->clearErrors();
+        assertFalse($user->hasErrors());
+    }
+
+    /** @throws Exception */
+    public function testConstructorNoArguments() {
+        $validator = $this->make(Validator::class, $this->fields);;
+        $user = new User4($validator);
+        assertinstanceof('User4', $user);
+        assertEquals('', $user->get('username'));
+        assertEquals('', $user->get('email'));
+        assertEquals('', $user->get('phone'));
+        assertFalse($user->hasErrors());
+    }
+
+
     /**
      * @dataProvider errorDataProvider
      * @param string $username
      * @param string $email
      * @param string $phone
-     * @param bool $hasErrors -- are errors expected?
+     * @param bool $expectErrors -- are errors expected?
      * @param int $count -- number of expected errors
      */
 
-      public function testErrors($username, $email, $phone, $hasErrors, $count) {
+      public function testErrors($username, $email, $phone, $expectErrors, $count) {
           $fields = array(
              'username' => $username,
              'email' => $email,
@@ -48,7 +79,7 @@ class T6_UserTest extends \Codeception\Test\Unit
           $user = new User4($this->validator, $fields);
           assertInstanceOf('User4', $user);
           $errors = $user->getErrors();
-          if ($hasErrors) {
+          if ($expectErrors) {
               assertTrue($user->hasErrors(), print_r($errors, true));
           } else {
               assertFalse($user->hasErrors(), print_r($errors, true));
@@ -71,26 +102,30 @@ class T6_UserTest extends \Codeception\Test\Unit
      * @param string $username
      * @param string $email
      * @param string $phone
-     * @param bool $hasErrors -- are errors expected?
+     * @param bool $expectErrors -- are errors expected?
      * @param int $count -- number of expected errors
      */
 
-      public function testUnknownField($username, $email, $phone, $hasErrors, $count) {
-          $count++; /* add one for unknown field */
-          $fields = array(
-              'username' => $username,
-              'email' => $email,
-              'phone' => $phone,
-              'unknown' => 'unknownField',
-          );
-          $user = new User4($this->validator, $fields);
-          assertInstanceOf('User4', $user);
-          $errors = $user->getErrors();
-          assertNotEmpty($errors);
-          assertEquals($count, count($errors));
-          assertContains('Unknown field', $errors);
-      }
-    
+    public function testUnknownField($username, $email, $phone, $expectErrors, $count) {
+        $count++; /* add one for unknown field */
+        $fields = array(
+          'username' => $username,
+          'email' => $email,
+          'phone' => $phone,
+          'unknown' => 'unknownField',
+        );
+        $user = new User4($this->validator, $fields);
+        assertInstanceOf('User4', $user);
+        $errors = $user->getErrors();
+        assertNotEmpty($errors);
+        assertEquals($count, count($errors));
+        assertContains('Unknown field', $errors);
+    }
+
+    public function testSave() {
+        $user = new User4($this->validator);
+        assertTrue($user->save());
+    }
     
     public function ErrorDataProvider() {
         $validUsername = 'BobRay';

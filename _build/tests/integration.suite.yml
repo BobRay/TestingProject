@@ -1,4 +1,15 @@
-actor: UnitTester
+actor: Tester
+
+bootstrap: _bootstrap.php
 modules:
     enabled:
         - \Helper\Integration
+        - Db:
+            dsn: 'mysql:host=localhost;dbname=test'
+            user: 'JoeTester'
+            password: 'TesterPassword'
+            dump: 'tests/_data/test.sql'
+            populate: false
+            cleanup: false
+            reconnect: false
+            waitlock: 30

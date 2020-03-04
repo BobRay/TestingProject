@@ -1,4 +1,4 @@
-actor: Tester
+actor: IntegrationTester
 
 bootstrap: _bootstrap.php
 modules:

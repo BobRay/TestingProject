@@ -1,19 +1,22 @@
 <?php
 namespace Helper;
+
 use \modX;
+use \modUser;
 
-class Integration extends \Codeception\Module
+class Integration extends \Codeception\Module {
 
-{
-    /**  @var \modX $modx */
-    public $modx;
-
-    public function getModx() {
-        require_once 'c:/xampp/htdocs/test/core/model/modx/modx.class.php';
-        echo "Getting MODX";
-        $this->modx = new modX();
-        $this->modx->initialize('mgr');
-        return $this->modx;
+    /**
+     * @param modX $modx
+     * @param array $usernames
+     */
+    public function removeUsers($modx, $usernames) {
+        /** @var modUser $user */
+        foreach ($usernames as $username) {
+            $user = $modx->getObject('modUser', array('username' => $username));
+            if ($user) {
+                $user->remove();
+            }
+        }
     }
-
 }

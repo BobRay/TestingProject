@@ -8,8 +8,8 @@ modules:
             dsn: 'mysql:host=localhost;dbname=test'
             user: 'JoeTester'
             password: 'TesterPassword'
-            dump: 'tests/_data/test.sql'
-            populate: false
-            cleanup: false
-            reconnect: false
-            waitlock: 30
+            # dump: 'tests/_data/test.sql'
+            # populate: true
+            # cleanup: true
+            # reconnect: true
+            # waitlock: 30

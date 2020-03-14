@@ -9,7 +9,7 @@ actor_suffix: Tester
 bootstrap: _bootstrap.php
 extensions:
     enabled:
-        - Codeception\Extension\RunFailed
+       # - Codeception\Extension\RunFailed
 
 settings:
     colors: true

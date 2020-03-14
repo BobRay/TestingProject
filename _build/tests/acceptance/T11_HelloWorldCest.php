@@ -1,11 +1,12 @@
 <?php 
-class T11_HelloWorldTest extends \Codeception\Test\Unit
+
+class T11_HelloWorldCest
 {
-    /**
+      /**
      * @var \AcceptanceTester
      */
     protected $tester;
-    
+
     protected function _before()
     {
     }

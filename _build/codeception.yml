@@ -9,6 +9,10 @@ actor_suffix: Tester
 bootstrap: _bootstrap.php
 extensions:
     enabled:
+       # Uncommenting the following line will put information
+       # in _build/tests/_support when a test fails,
+       # but I haven't found the information very useful
+
        # - Codeception\Extension\RunFailed
 
 settings:

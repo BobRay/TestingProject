@@ -1,11 +1,12 @@
 <?php 
-class T11_HelloWorldTest extends \Codeception\Test\Unit
+
+class T11_HelloWorldCest
 {
     /**
      * @var \AcceptanceTester
      */
-    protected $tester;
-    
+    public $I;
+
     protected function _before()
     {
     }
@@ -15,9 +16,8 @@ class T11_HelloWorldTest extends \Codeception\Test\Unit
     }
 
     // tests
-    public function testSomeFeature()
+    public function testSomeFeature(\AcceptanceTester $I)
     {
-        $I = $this->tester;
         $I->amOnPage('helloworld.html');
         $I->see('Hello World');
     }

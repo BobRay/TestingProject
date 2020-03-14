@@ -7,11 +7,11 @@ class T11_HelloWorldCest
      */
     public $I;
 
-    protected function _before()
+    protected function _before(\AcceptanceTester $I)
     {
     }
 
-    protected function _after()
+    protected function _after(\AcceptanceTester $I)
     {
     }
 

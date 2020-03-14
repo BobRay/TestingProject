@@ -7,6 +7,23 @@
 actor: AcceptanceTester
 modules:
     enabled:
-        - PhpBrowser:
-            url: http://localhost/myapp
         - \Helper\Acceptance
+        - WebDriver
+        - Asserts
+    config:
+        WebDriver:
+            url: 'http://localhost/test/'
+            browser: 'chrome'
+            window_size: 'maximize'
+            wait: 5
+            # window_size: false
+            #capabilities:
+               # chromeOptions:
+                    #args: ["--headless", "--disable-gpu", "--disable-extensions"]
+
+extensions:
+    enabled:
+        - Codeception\Extension\RunProcess:
+              - java -jar c:/Users/BobRay/Downloads/Selenium/selenium-server-standalone-3.9.0.jar
+              - C:/Users/BobRay/Downloads/selenium-drivers/chromedriver.exe
+              # -  C:/Users/BobRay/Downloads/selenium-drivers/geckodriver.exe

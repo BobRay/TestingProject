@@ -14,6 +14,7 @@ modules:
         WebDriver:
             url: 'http://localhost/test/'
             browser: 'chrome'
+            # browser: 'firefox'
             window_size: 'maximize'
             wait: 5
             # window_size: false
@@ -24,6 +25,6 @@ modules:
 extensions:
     enabled:
         - Codeception\Extension\RunProcess:
-              - java -jar c:/Users/BobRay/Downloads/Selenium/selenium-server-standalone-3.9.0.jar
-              - C:/Users/BobRay/Downloads/selenium-drivers/chromedriver.exe
-              # -  C:/Users/BobRay/Downloads/selenium-drivers/geckodriver.exe
+            - java -jar c:/Users/BobRay/Downloads/Selenium/selenium-server-standalone-3.9.0.jar
+            - C:/Users/BobRay/Downloads/selenium-drivers/chromedriver.exe
+            # -  C:/Users/BobRay/Downloads/selenium-drivers/geckodriver.exe

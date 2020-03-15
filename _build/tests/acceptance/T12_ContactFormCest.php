@@ -9,6 +9,7 @@ class T12_ContactFormCest
     // tests
     public function testContactForm(AcceptanceTester $I)
     {
+        /* Submit empty form */
         $delay = 2;
         $I->amOnPage('contactform.html');
         $I->see('To contact us');
@@ -17,6 +18,7 @@ class T12_ContactFormCest
         $I->see('Name is required');
         $I->wait($delay);
 
+        /* Submit form with name only */
         $I->amOnPage('contactform.html');
         $I->fillField("#user_name", 'BobRay');
         $I->wait($delay);
@@ -24,6 +26,7 @@ class T12_ContactFormCest
         $I->see('Email is required');
         $I->wait($delay);
 
+        /* Submit form with name and email only */
         $I->amOnPage('contactform.html');
         $I->fillField("#user_name", 'BobRay');
         $I->fillField("#user_email", 'bob@hotmail.com');
@@ -32,6 +35,7 @@ class T12_ContactFormCest
         $I->see('Message is required');
         $I->wait($delay);
 
+        /* Submit with all fields filled */
         $I->amOnPage('contactform.html');
         $I->fillField("#user_name", 'BobRay');
         $I->fillField("#user_email", 'bob@hotmail.com');

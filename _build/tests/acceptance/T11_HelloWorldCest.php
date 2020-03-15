@@ -20,5 +20,6 @@ class T11_HelloWorldCest
     {
         $I->amOnPage('helloworld.html');
         $I->see('Hello World');
+        $I->wait(3);
     }
 }

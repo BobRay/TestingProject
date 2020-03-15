@@ -6,6 +6,9 @@ class T12_ContactFormCest
     {
     }
 
+    public function _after(AcceptanceTester $I) {
+    }
+
     // tests
     public function testContactForm(AcceptanceTester $I)
     {

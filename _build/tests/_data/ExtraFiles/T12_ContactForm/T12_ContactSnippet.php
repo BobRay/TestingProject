@@ -18,6 +18,8 @@ if (isset($_POST['submit_button']) && $_POST['submit_button'] === "submitted") {
         }
     }
 
+    /* Email would be sent here */
+
     return "<p>Thank you, we'll respond as soon as possible</p>";
 
 

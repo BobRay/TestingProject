@@ -10,7 +10,7 @@ class Login
     public static $username = 'JoeTester';
     public static $password = 'TesterPassword';
     public static $loginButton = '#modx-login-btn';
-    public static $userMenu = '#user-username';
+    public static $userMenu = '#modx-user-menu';
     public static $logoutLink = "//a[contains(@href,'?a=security/logout')]";
     public static $yesButton = "//button[contains(text(), 'Yes')]";
 
@@ -43,7 +43,7 @@ class Login
     public function logout() {
         /** @var \AcceptanceTester $I */
         $I = $this->tester;
-        $I->click(self::$userMenu);
+        $I->moveMouseOver(self::$userMenu);
         $I->waitForElementVisible(self::$logoutLink, 3);
         $I->click(self::$logoutLink);
         $I->wait(1);

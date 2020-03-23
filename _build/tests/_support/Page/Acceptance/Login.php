@@ -24,7 +24,7 @@ class Login
     }
 
     public function login($username = '', $password = '') {
-        /* @var \AcceptanceTester $I */
+        /** @var \AcceptanceTester $I */
         $I = $this->tester;
         $username = empty($username) ? self::$username : $username;
         $password = empty($password) ? self::$password : $password;

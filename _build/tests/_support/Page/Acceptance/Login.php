@@ -44,7 +44,7 @@ class Login
         /** @var \AcceptanceTester $I */
         $I = $this->tester;
         $I->click(self::$userMenu);
-        $I->waitForElementVisible(self::$logoutLink);
+        $I->waitForElementVisible(self::$logoutLink, 3);
         $I->click(self::$logoutLink);
         $I->wait(1);
         $I->click(self::$yesButton);

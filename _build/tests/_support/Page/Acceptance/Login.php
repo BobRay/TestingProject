@@ -10,6 +10,9 @@ class Login
     public static $username = 'JoeTester';
     public static $password = 'TesterPassword';
     public static $loginButton = '#modx-login-btn';
+    public static $userMenu = '#user-username';
+    public static $logoutLink = "//a[contains(@href,'?a=security/logout')]";
+    public static $yesButton = "//button[contains(text(), 'Yes')]";
 
      /**
      * @var $tester \AcceptanceTester;
@@ -18,8 +21,8 @@ class Login
 
     public function __construct(\AcceptanceTester $I)
     {
-        /* Set $this->tester to $I so it's available
-           in other methods */
+        /* Set $this->tester to passed-in $I so it's
+            available in other methods */
         $this->tester = $I;
     }
 
@@ -34,5 +37,16 @@ class Login
         $I->fillField(self::$passwordField, $password);
         $I->click(self::$loginButton);
         return $this;
+    }
+
+    /** @throws \Exception */
+    public function logout() {
+        /** @var \AcceptanceTester $I */
+        $I = $this->tester;
+        $I->click(self::$userMenu);
+        $I->waitForElementVisible(self::$logoutLink);
+        $I->click(self::$logoutLink);
+        $I->wait(1);
+        $I->click(self::$yesButton);
     }
 }

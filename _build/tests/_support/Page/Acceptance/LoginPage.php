@@ -1,7 +1,7 @@
 <?php
 namespace Page\Acceptance;
 
-class Login
+class LoginPage
 {
     // include url of current page
     public static $managerUrl = 'manager/';

@@ -1,5 +1,5 @@
 <?php
-use Page\Acceptance\Login as LoginPage;
+use Page\Acceptance\LoginPage;
 
 class T14_LoginPageCest
 {

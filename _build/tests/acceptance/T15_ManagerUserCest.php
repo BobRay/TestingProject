@@ -45,6 +45,7 @@ class T15_ManagerUserCest
     public function CreateUsersTest(AcceptanceTester $I)
     {
         $I->wantTo('Log In');
+        $generatedPassword = null;
         $loginPage = new LoginPage($I);
         $managerPage = new ManagerPage($I);
         $userPage = new UserPage($I);
@@ -64,6 +65,7 @@ class T15_ManagerUserCest
 
         $users = $userPage::$users;
         foreach($users as $userFields) {
+            $autoPassword = empty($userFields['password']);
             $I->waitForElementVisible($userPage::$newUserButton, 30);
             $I->click($userPage::$newUserButton);
 
@@ -90,14 +92,18 @@ class T15_ManagerUserCest
                         break;
 
                     case 'password':
-                        $I->click($userPage::$passwordNotifyScreen);
-                        $I->click($userPage::$passwordGenManual);
-                        $I->waitForElementVisible($userPage::$passwordInput, 5);
-                        $I->wait(2); //necessary
-                        $I->fillField($userPage::$passwordInput, $value);
-                        $I->fillField($userPage::$passwordConfirmInput, $value);
-                        $I->wait(1); // necessary
+                        if (! $autoPassword) {
+                            /* Manual password */
+                            $I->click($userPage::$passwordNotifyScreen);
+                            $I->click($userPage::$passwordGenManual);
+                            $I->waitForElementVisible($userPage::$passwordInput, 5);
+                            $I->wait(2); //necessary
+                            $I->fillField($userPage::$passwordInput, $value);
+                            $I->fillField($userPage::$passwordConfirmInput, $value);
+                            $I->wait(1); // necessary
+                        }
                         break;
+
 
                     default:
                         $I->fillField($prefix . $locator, $value);
@@ -108,6 +114,12 @@ class T15_ManagerUserCest
             /* Save and close user form */
             $I->click($userPage::$userSaveButton);
             $I->waitForElementVisible($userPage::$userOkButton);
+            if ($autoPassword) {
+                $msg = $I->grabTextFrom($userPage::$autoPasswordValue);
+                assertNotEmpty($msg);
+                $msg = explode(':', $msg);
+                $generatedPassword = trim($msg[1]);
+            }
             $I->click($userPage::$userOkButton);
 
             /* Make sure user was saved, then close */
@@ -121,6 +133,7 @@ class T15_ManagerUserCest
 
         /* Test database values for both users */
         foreach($users as $userFields) {
+            $autoPassword = empty($userFields['password']);
             /** @var modUser $user */
             $user = $this->modx->getObject('modUser',
                 array('username'=> $userFields['username']));
@@ -133,7 +146,12 @@ class T15_ManagerUserCest
             foreach($userFields as $key => $value) {
                 switch($key) {
                     case 'password':
-                        assertTrue($user->passwordMatches($userFields['password']));
+                        if ($autoPassword) {
+                           $pw = $generatedPassword;
+                        } else {
+                            $pw = $userFields['password'];
+                        }
+                        assertTrue($user->passwordMatches($pw));
                         break;
 
                     case 'country':

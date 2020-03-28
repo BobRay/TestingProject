@@ -15,6 +15,7 @@ class UserPage
     public static $passwordGenManual = '#modx-user-password-genmethod-s';
     public static $passwordInput = '#modx-user-specifiedpassword';
     public static $passwordConfirmInput = '#modx-user-confirmpassword';
+    public static $autoPasswordValue = '//span[starts-with(text(), "The User has been created")][1]';
 
     /* In the associative arrays below, the keys are the
        locators for fields in the user form. The values
@@ -38,7 +39,7 @@ class UserPage
             'dob' => '03/22/1995',
             'gender' => 'Male',
             'comment' => 'Some Comment',
-            'password' => 'SomePassword',
+            'password' => '',
 
         ),
         'user2' => array(
@@ -57,7 +58,7 @@ class UserPage
             'dob' => '02/21/1997',
             'gender' => 'Female',
             'comment' => 'Some Other Comment',
-            'password' => 'SomeOtherPassword',
+            'password' => 'SomePassword',
         ),
     );
 

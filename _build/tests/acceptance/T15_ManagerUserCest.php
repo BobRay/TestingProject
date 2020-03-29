@@ -35,8 +35,10 @@ class T15_ManagerUserCest
         foreach ($this->usernames as $username) {
             $user = $this->modx->getObject('modUser', array('username' => $username));
             if ($user) {
-              // $user->remove();
+              $user->remove();
             }
+            $user = $this->modx->getObject('modUser', array('username' => $username));
+            assertNull($user);
         }
     }
 

@@ -6,7 +6,8 @@
 
 actor: AcceptanceTester
 
-bootstrap: _bootstrap.php
+#used for older versions of Codeception
+#bootstrap: _bootstrap.php
 
 modules:
     enabled:

@@ -12,7 +12,7 @@ class T16_ResourceProtectionCest
     private const USER_GROUPS = array('Public', 'Private');
     private const RESOURCE_GROUPS = array('Public', 'Private');
 
-    public static function setupBeforeClass(\Step\Acceptance\Objects $I) {
+    public static function _before(\Step\Acceptance\Objects $I) {
         $users = include codecept_data_dir() . '/user_data.php';
         $resources = include codecept_data_dir() . '/resource_data.php';
         $modx = Fixtures::get('modx');
@@ -24,7 +24,7 @@ class T16_ResourceProtectionCest
         $I->createResources($modx, $resources);
     }
     
-    public static function tearDownAfterClass(\Step\Acceptance\Objects $I) {
+    public static function _after(\Step\Acceptance\Objects $I) {
         $users = include codecept_data_dir() . '/user_data.php';
         $resources = include codecept_data_dir() . '/resource_data.php';
         $modx = Fixtures::get('modx');
@@ -36,10 +36,6 @@ class T16_ResourceProtectionCest
         $I->removeResources($modx, $resources);
     }
     // tests
-    /* Make sure platform is working */
-    public function platformTest(AcceptanceTester $I) {
-        assertTrue(true);
-    }
 
     /** @skip */
     public function ResourceProtectionTest(AcceptanceTester $I)

@@ -37,10 +37,8 @@ class T16_ResourceProtectionCest
     }
     // tests
 
-    /** @skip */
     public function ResourceProtectionTest(AcceptanceTester $I)
     {
-        assertTrue(false);
 
         /* Login admin user JoeTester */
 

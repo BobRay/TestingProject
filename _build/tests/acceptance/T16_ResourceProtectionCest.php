@@ -1,6 +1,8 @@
 <?php
 use Codeception\Util\Fixtures;
-// use Step\Acceptance\User as user;
+use Page\Acceptance\LoginPage;
+use Page\Acceptance\ManagerPage;
+
 class T16_ResourceProtectionCest
 {
 
@@ -45,6 +47,7 @@ class T16_ResourceProtectionCest
         assertTrue(false);
 
         /* Login admin user JoeTester */
+
 
         /* Create ACL entry */
 

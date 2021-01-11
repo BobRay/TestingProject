@@ -57,29 +57,29 @@ class T17_ResourceProtectionCest
         $I->wait(1);
         $I->moveMouseOver('#acls');
 
-        $I->clickWithLeftButton('#acls');
+        $I->click('#acls');
         $I->wait($wait);
 
         /* Update PrivateUser user group */
 
-        $I->clickWithLeftButton("//span[starts-with(text(),'PrivateUsers')]");
+        $I->click("//span[starts-with(text(),'PrivateUsers')]");
         $I->wait($wait);
 
-        $I->clickWithLeftButton("//button[contains(text(), 'Update User Group')]");
+        $I->click("//button[contains(text(), 'Update User Group')]");
         $I->wait($wait);
 
         /* Select Permissions top tab */
-        $I->clickWithLeftButton("//span[starts-with(@class,'x-tab-strip-text') and text()='Permissions']");
+        $I->click("//span[starts-with(@class,'x-tab-strip-text') and text()='Permissions']");
         $I->wait($wait);
 
         /* Select Resource Group Access left tab */
-        $I->clickWithLeftButton("//span[contains(text(),'Resource Group Access')]");
+        $I->click("//span[contains(text(),'Resource Group Access')]");
 
         $I->wait($wait);
 
         /* Create actual ACL entry */
 
-        $I->clickWithLeftButton("//button[contains(text(),'Add Resource Group')]");
+        $I->click("//button[contains(text(),'Add Resource Group')]");
 
         $I->wait($wait);
 
@@ -95,18 +95,18 @@ class T17_ResourceProtectionCest
         $I->click("//input[starts-with(@id,'modx-crgact') and contains(@id, '-context')]");
         $I->wait($wait);
 
-        $I->clickWithLeftButton("//span[text()='(mgr)']");
+        $I->click("//span[text()='(mgr)']");
 
         /* Set Role */
 
-        $I->clickWithLeftButton("//input[starts-with(@id,'modx-crgact') and contains(@id, 'authority')]");
+        $I->click("//input[starts-with(@id,'modx-crgact') and contains(@id, 'authority')]");
 
         $I->wait($wait+2);
 
-        $I->clickWithLeftButton("//div[text()='TestUser - 15' and contains(@class,'x-combo-list-item')]");
+        $I->click("//div[text()='TestUser - 15' and contains(@class,'x-combo-list-item')]");
 
         /* Set Policy */
-        $I->clickWithLeftButton("//*[starts-with(@id,'x-form-el-modx-crg') and contains(@id,'policy')]");
+        $I->click("//*[starts-with(@id,'x-form-el-modx-crg') and contains(@id,'policy')]");
         $I->wait($wait);
 
         $I->click("//div[text()='Resource']");

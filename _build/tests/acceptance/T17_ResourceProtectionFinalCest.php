@@ -25,6 +25,7 @@ class T17_ResourceProtectionCest
     }
     
     public static function _after(\Step\Acceptance\Objects $I) {
+        return;
         $users = include codecept_data_dir() . '/user_data.php';
         $resources = include codecept_data_dir() . '/resource_data.php';
         $modx = Fixtures::get('modx');
@@ -100,9 +101,9 @@ class T17_ResourceProtectionCest
 
         $I->clickWithLeftButton("//input[starts-with(@id,'modx-crgact') and contains(@id, 'authority')]");
 
-        $I->wait($wait);
+        $I->wait($wait+2);
 
-        $I->clickWithLeftButton("//div[text()='TestUser - 15']");
+        $I->clickWithLeftButton("//div[text()='TestUser - 15' and contains(@class,'x-combo-list-item')]");
 
         /* Set Policy */
         $I->clickWithLeftButton("//*[starts-with(@id,'x-form-el-modx-crg') and contains(@id,'policy')]");
@@ -115,6 +116,12 @@ class T17_ResourceProtectionCest
         /* Save ACL entry */
 
         $I->click("//span[starts-with(@id,'ext-comp')]/em/button[text()='Save']");
+        $I->wait($wait);
+        $I->reloadPage();
+
+        $I->wait($wait);
+        $I->see("PublicResource");
+        $I->dontSee("PrivateResource");
 
         /* Logout JoeTester */
         $I->wait($wait);
@@ -124,15 +131,61 @@ class T17_ResourceProtectionCest
 
         /* Login PrivateUser */
 
+        $I->wait($wait);
+        $loginPage->login('PrivateUser', 'somepassword');
+        $I->see('Content');
+        $I->see('Manage');
+        $I->wait($wait);
+
         /* See if Private resource is there */
+        $I->wait($wait);
+        $I->see("PublicResource");
+        $I->see("PrivateResource");
+
 
         /* Logout PrivateUser */
 
+        $I->wait($wait);
+        $loginPage->logout();
+        $I->wait($wait);
+        $I->see('Password');
+
         /* Login PublicUser */
+        $I->wait($wait);
+        $loginPage->login('PublicUser', 'somepassword');
+        $I->see('Content');
+        $I->see('Manage');
+        $I->wait($wait);
 
         /* Make sure Private resource is not there */
 
+        $I->see("PublicResource");
+        $I->dontSee("PrivateResource");
+
         /* Logout PublicUser */
 
+        $I->wait($wait);
+        $loginPage->logout();
+        $I->wait($wait);
+        $I->see('Password');
+
+        /* Try JoeTester super user again --
+                should not see private resource */
+        $loginPage = new LoginPage($I);
+        $loginPage->login('JoeTester', 'TesterPassword');
+        $I->see('Content');
+        $I->see('Manage');
+        $I->wait($wait);
+
+        $I->see("PublicResource");
+        $I->dontSee("PrivateResource");
+
+        /* Logout JoeTester */
+        /* Logout PublicUser */
+
+        $I->wait($wait);
+        $loginPage->logout();
+        $I->wait($wait);
+        $I->see('Password');
     }
 }

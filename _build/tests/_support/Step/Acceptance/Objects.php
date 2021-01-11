@@ -123,7 +123,8 @@ class Objects extends \AcceptanceTester
             }
             $group = $modx->newObject('modResourceGroup');
             $group->set('name', $name);
-            $group->save();
+            $success = $group->save();
+            assertTrue($success);
         }
     }
 

@@ -25,7 +25,8 @@ class T17_ResourceProtectionCest
     }
     
     public static function _after(\Step\Acceptance\Objects $I) {
-        return;
+        // return;  /* allows examination of objects and ACL */
+
         $users = include codecept_data_dir() . '/user_data.php';
         $resources = include codecept_data_dir() . '/resource_data.php';
         $modx = Fixtures::get('modx');
@@ -119,6 +120,8 @@ class T17_ResourceProtectionCest
         $I->wait($wait);
         $I->reloadPage();
 
+        /* Make sure JoeTester can see PublicResource
+           and can't see PrivateResource */
         $I->wait($wait);
         $I->see("PublicResource");
         $I->dontSee("PrivateResource");
@@ -162,25 +165,6 @@ class T17_ResourceProtectionCest
         $I->see("PublicResource");
         $I->dontSee("PrivateResource");
 
-        /* Logout PublicUser */
-
-        $I->wait($wait);
-        $loginPage->logout();
-        $I->wait($wait);
-        $I->see('Password');
-
-        /* Try JoeTester super user again --
-                should not see private resource */
-        $loginPage = new LoginPage($I);
-        $loginPage->login('JoeTester', 'TesterPassword');
-        $I->see('Content');
-        $I->see('Manage');
-        $I->wait($wait);
-
-        $I->see("PublicResource");
-        $I->dontSee("PrivateResource");
-
-        /* Logout JoeTester */
         /* Logout PublicUser */
 
         $I->wait($wait);

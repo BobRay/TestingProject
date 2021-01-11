@@ -9,8 +9,8 @@ class T16_ResourceProtectionCest
     /** @var _generated\modX $modx */
     public $modx;
     private const ROLES = array('TestUser');
-    private const USER_GROUPS = array('Public', 'Private');
-    private const RESOURCE_GROUPS = array('Public', 'Private');
+    private const USER_GROUPS = array('PublicUsers', 'PrivateUsers');
+    private const RESOURCE_GROUPS = array('PublicResources', 'PrivateResources');
 
     public static function _before(\Step\Acceptance\Objects $I) {
         $users = include codecept_data_dir() . '/user_data.php';
@@ -25,6 +25,7 @@ class T16_ResourceProtectionCest
     }
     
     public static function _after(\Step\Acceptance\Objects $I) {
+        // return;  /* allows examination of objects and ACL */
         $users = include codecept_data_dir() . '/user_data.php';
         $resources = include codecept_data_dir() . '/resource_data.php';
         $modx = Fixtures::get('modx');
@@ -44,6 +45,9 @@ class T16_ResourceProtectionCest
 
 
         /* Create ACL entry */
+
+        /* Make sure JoeTester can see PublicResource
+           and can't see PrivateResource */
 
         /* Logout JoeTester */
 

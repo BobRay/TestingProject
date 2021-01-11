@@ -73,9 +73,16 @@ class Objects extends \AcceptanceTester
         $modx->error->reset();
         $modx->runProcessor('security/user/create', $fields);
         $user = $modx->getObject('modUser', array('username' => $fields['username']));
+        assertInstanceOf('modUser', $user);
         if ($user) {
-            $user->joinGroup($fields['usergroup'], $fields['role']);
+            $success = $user->joinGroup(
+                $fields['usergroup'], $fields['role']);
+            assertTrue($success);
             $user->save();
+            /* Give everyone access to the Manager */
+            $success = $user->joinGroup('Administrator',
+                'Super User');
+            assertTrue($success);
         }
     }
     public function createUsers($modx, $users)
@@ -142,12 +149,16 @@ class Objects extends \AcceptanceTester
                 $r->remove();
             }
             $r = $modx->newObject('modResource');
-            $r ->set('template', $template);
-            $r -> set('pagetitle', $resource['pagetitle']);
+            $r->set('template', $template);
+            $r-> set('pagetitle', $resource['pagetitle']);
             $r-> set('alias', $resource['alias']);
             $r->setContent($resource['content']);
             $r->save();
-            $r->joinGroup($resource['group']);
+            $r = $modx->getObject('modResource',
+                array('alias' => $resource['alias']), false);
+            assertInstanceOf('modResource', $r);
+            $success = $r->joinGroup($resource['group']);
+            assertTrue($success);
         }
     }
 

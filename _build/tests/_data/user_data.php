@@ -7,8 +7,8 @@ $users = array(
         'email' => 'someUser@gmail.com',
         'password' => 'somepassword',
         'active' => '1',
-        'usergroup' => 'Private',
-        'role' => 'TestRole',
+        'usergroup' => 'PrivateUsers',
+        'role' => 'TestUser',
     ),
 
     array(
@@ -16,8 +16,8 @@ $users = array(
         'email' => 'someUser@gmail.com',
         'password' => 'somepassword',
         'active' => '1',
-        'usergroup' => 'Public',
-        'role' => 'TestRole',
+        'usergroup' => 'PublicUsers',
+        'role' => 'TestUser',
     ),
 
     array(

@@ -7,7 +7,7 @@ $resources = array(
             'alias' => 'publicresource',
             'content' => 'PublicResourceContent',
             'published' => true,
-            'group' => 'Public',
+            'group' => 'PublicResources',
         ),
 
         array(
@@ -15,7 +15,7 @@ $resources = array(
             'alias' => 'privateresource',
             'content' => 'PrivateResourceContent',
             'published' => true,
-            'group' => 'Private',
+            'group' => 'PrivateResources',
         ),
 );
 

@@ -1,7 +1,7 @@
 <?php
 use Codeception\Util\Fixtures;
 use Page\Acceptance\LoginPage;
-use Page\Acceptance\ManagerPage;
+use Page\Acceptance\ResourceTestPage;
 
 class T17_ResourceProtectionCest
 {
@@ -13,8 +13,13 @@ class T17_ResourceProtectionCest
     private const RESOURCE_GROUPS = array('PublicResources', 'PrivateResources');
 
     public static function _before(\Step\Acceptance\Objects $I) {
-        $users = include codecept_data_dir() . '/user_data.php';
-        $resources = include codecept_data_dir() . '/resource_data.php';
+        /* Load data files */
+        $users = include codecept_data_dir() .
+            '/user_data.php';
+
+        $resources = include codecept_data_dir() .
+            '/resource_data.php';
+
         $modx = Fixtures::get('modx');
         assertTrue($modx instanceof modX);
         $I->createRoles($modx, self::ROLES);
@@ -41,6 +46,7 @@ class T17_ResourceProtectionCest
     public function ResourceProtectionTest(AcceptanceTester $I)
     {
         assertTrue(true);
+        $testPage = new ResourceTestPage($I);
         $wait = 2;
 
         /* Login admin user JoeTester */
@@ -54,69 +60,69 @@ class T17_ResourceProtectionCest
 
         /* Go to ACL panel */
         $I->wait($wait + 1);
-        $I->moveMouseOver('#limenu-admin');
+        $I->moveMouseOver($testPage::$systemMenu);
         $I->wait(1);
-        $I->moveMouseOver('#acls');
+        $I->moveMouseOver($testPage::$acl_option);
 
-        $I->click('#acls');
+        $I->click($testPage::$acl_option);
         $I->wait($wait);
 
         /* Update PrivateUser user group */
 
-        $I->click("//span[starts-with(text(),'PrivateUsers')]");
+        $I->click($testPage::$privateUsersGroup);
         $I->wait($wait);
 
-        $I->click("//button[contains(text(), 'Update User Group')]");
+        $I->click($testPage::$updateUserGroupOption);
         $I->wait($wait);
 
         /* Select Permissions top tab */
-        $I->click("//span[starts-with(@class,'x-tab-strip-text') and text()='Permissions']");
+        $I->click($testPage::$permissionsTab);
         $I->wait($wait);
 
         /* Select Resource Group Access left tab */
-        $I->click("//span[contains(text(),'Resource Group Access')]");
+        $I->click($testPage::$resourceGroupAccessTab);
 
         $I->wait($wait);
 
         /* Create actual ACL entry */
 
-        $I->click("//button[contains(text(),'Add Resource Group')]");
+        $I->click($testPage::$addResourceGroupButton);
 
         $I->wait($wait);
 
         /* Set Resource Group */
 
-        $I->click("//input[starts-with(@id,'modx-crgact') and contains(@id, 'resource-group')]");
+        $I->click($testPage::$resourceGroupInput);
         $I->wait($wait);
 
-        $I->click("//div[text()='PrivateResources']");
+        $I->click($testPage::$privateResourcesOption);
 
         /* Set Context */
 
-        $I->click("//input[starts-with(@id,'modx-crgact') and contains(@id, '-context')]");
+        $I->click($testPage::$contextInput);
         $I->wait($wait);
 
-        $I->click("//span[text()='(mgr)']");
+        $I->click($testPage::$mgrOption);
 
         /* Set Role */
 
-        $I->click("//input[starts-with(@id,'modx-crgact') and contains(@id, 'authority')]");
+        $I->click($testPage::$authorityInput);
 
         $I->wait($wait+2);
 
-        $I->click("//div[text()='TestUser - 15' and contains(@class,'x-combo-list-item')]");
+        $I->click($testPage::$testUserOption);
 
         /* Set Policy */
-        $I->click("//*[starts-with(@id,'x-form-el-modx-crg') and contains(@id,'policy')]");
+        $I->click($testPage::$policyInput);
         $I->wait($wait);
 
-        $I->click("//div[text()='Resource']");
+        $I->click($testPage::$resourceOption);
 
         $I->wait($wait);
 
         /* Save ACL entry */
 
-        $I->click("//span[starts-with(@id,'ext-comp')]/em/button[text()='Save']");
+        $I->click($testPage::$addResourcePanelSaveButton);
         $I->wait($wait);
         $I->reloadPage();
 

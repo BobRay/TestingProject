@@ -149,12 +149,8 @@ class Objects extends \AcceptanceTester
             if ($r) {
                 $r->remove();
             }
-            $r = $modx->newObject('modResource');
-            $r->set('template', $template);
-            $r-> set('pagetitle', $resource['pagetitle']);
-            $r-> set('alias', $resource['alias']);
-            $r->setContent($resource['content']);
-            $r->save();
+            $modx->runProcessor('resource/create', $resource);
+
             $r = $modx->getObject('modResource',
                 array('alias' => $resource['alias']), false);
             assertInstanceOf('modResource', $r);

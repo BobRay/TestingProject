@@ -3,14 +3,14 @@ namespace Step\Acceptance;
 
 class Objects extends \AcceptanceTester
 {
-
     public function createRoles($modx, $roles)
     {
         $I = $this;
-        // $dir = self::DATA_DIR;
+
         foreach ($roles as $name) {
 
-            $role = $modx->getObject('modUserGroupRole', array('name' => $name));
+            $role = $modx->getObject('modUserGroupRole',
+                array('name' => $name));
             if ($role) {
                 $role->remove();
             }
@@ -26,7 +26,8 @@ class Objects extends \AcceptanceTester
     {
         $I = $this;
         foreach($roles as $name) {
-            $role = $modx->getObject('modUserGroupRole', array('name'=> $name));
+            $role = $modx->getObject('modUserGroupRole',
+                array('name'=> $name));
             if ($role) {
                 $role->remove();
             }
@@ -37,7 +38,8 @@ class Objects extends \AcceptanceTester
     {
         $I = $this;
         foreach($groups as $name) {
-            $group = $modx->getObject('modUserGroup', array('name' => $name));
+            $group = $modx->getObject('modUserGroup',
+                array('name' => $name));
             if ($group) {
                 $group->remove();
             }
@@ -52,11 +54,11 @@ class Objects extends \AcceptanceTester
     {
         $I = $this;
         foreach($groups as $name) {
-            $group = $modx->getObject('modUserGroup', array('name'=> $name));
+            $group = $modx->getObject('modUserGroup',
+                array('name'=> $name));
             if ($group) {
                 $group->remove();
             }
-
         }
     }
 
@@ -72,7 +74,8 @@ class Objects extends \AcceptanceTester
 
         $modx->error->reset();
         $modx->runProcessor('security/user/create', $fields);
-        $user = $modx->getObject('modUser', array('username' => $fields['username']));
+        $user = $modx->getObject('modUser',
+            array('username' => $fields['username']));
         assertInstanceOf('modUser', $user);
         if ($user) {
             $success = $user->joinGroup(
@@ -90,10 +93,10 @@ class Objects extends \AcceptanceTester
         /** @var $modx modX */
         $I = $this;
         foreach ($users as $user) {
-            $userObj = $modx->getObject('modUser', array(
-                'username' =>
-                    $user['username']
-            ));
+            $userObj = $modx->getObject('modUser',
+                array(
+                    'username' => $user['username']
+                ));
             if ($userObj) {
                 $userObj->remove();
             }
@@ -132,7 +135,8 @@ class Objects extends \AcceptanceTester
     {
         $I = $this;
         foreach ($groups as $name) {
-            $group = $modx->getObject('modResourceGroup', array('name' => $name));
+            $group = $modx->getObject('modResourceGroup',
+                array('name' => $name));
             if ($group) {
                 $group->remove();
             }
@@ -141,7 +145,8 @@ class Objects extends \AcceptanceTester
 
     public function createResources($modx, $resources)
     {
-        $template = (int) $modx->getOption('default_template', null, 0, true);
+        $template = (int) $modx->getOption('default_template',
+            null, 0, true);
         $I = $this;
         foreach($resources as $resource) {
             $r = $modx->getObject('modResource',
@@ -230,5 +235,4 @@ class Objects extends \AcceptanceTester
     {
         $I = $this;
     }
-
 }

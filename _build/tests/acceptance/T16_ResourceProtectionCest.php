@@ -13,8 +13,10 @@ class T16_ResourceProtectionCest
     private const RESOURCE_GROUPS = array('PublicResources', 'PrivateResources');
 
     public static function _before(\Step\Acceptance\Objects $I) {
-        $users = include codecept_data_dir() . '/user_data.php';
-        $resources = include codecept_data_dir() . '/resource_data.php';
+        $users = include codecept_data_dir() .
+            '/user_data.php';
+        $resources = include codecept_data_dir() .
+            '/resource_data.php';
         $modx = Fixtures::get('modx');
         assertTrue($modx instanceof modX);
         $I->createRoles($modx, self::ROLES);
@@ -26,8 +28,10 @@ class T16_ResourceProtectionCest
     
     public static function _after(\Step\Acceptance\Objects $I) {
         // return;  /* allows examination of objects and ACL */
-        $users = include codecept_data_dir() . '/user_data.php';
-        $resources = include codecept_data_dir() . '/resource_data.php';
+        $users = include codecept_data_dir() .
+            '/user_data.php';
+        $resources = include codecept_data_dir() .
+            '/resource_data.php';
         $modx = Fixtures::get('modx');
         assertTrue($modx instanceof modX);
         $I->removeRoles($modx, self::ROLES);
@@ -36,7 +40,7 @@ class T16_ResourceProtectionCest
         $I->removeResourceGroups($modx, self::RESOURCE_GROUPS);
         $I->removeResources($modx, $resources);
     }
-    // tests
+    // test
 
     public function ResourceProtectionTest(AcceptanceTester $I)
     {

@@ -9,8 +9,10 @@ class T17_ResourceProtectionCest
     /** @var _generated\modX $modx */
     public $modx;
     private const ROLES = array('TestUser');
-    private const USER_GROUPS = array('PublicUsers', 'PrivateUsers');
-    private const RESOURCE_GROUPS = array('PublicResources', 'PrivateResources');
+    private const USER_GROUPS = array('PublicUsers',
+        'PrivateUsers');
+    private const RESOURCE_GROUPS =
+        array('PublicResources', 'PrivateResources');
 
     public static function _before(\Step\Acceptance\Objects $I) {
         /* Load data files */
@@ -30,10 +32,12 @@ class T17_ResourceProtectionCest
     }
     
     public static function _after(\Step\Acceptance\Objects $I) {
-        // return;  /* allows examination of objects and ACL */
+     // return;  /* allows examination of objects and ACL */
 
-        $users = include codecept_data_dir() . '/user_data.php';
-        $resources = include codecept_data_dir() . '/resource_data.php';
+        $users = include codecept_data_dir() .
+            '/user_data.php';
+        $resources = include codecept_data_dir() .
+            '/resource_data.php';
         $modx = Fixtures::get('modx');
         assertTrue($modx instanceof modX);
         $I->removeRoles($modx, self::ROLES);

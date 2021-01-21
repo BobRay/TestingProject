@@ -3,7 +3,7 @@ use Codeception\Util\Fixtures;
 use Page\Acceptance\LoginPage;
 use Page\Acceptance\ResourceTestPage;
 
-class T17_ResourceProtectionCest
+class T17_ResourceProtectionFinalCest
 {
 
     /** @var _generated\modX $modx */
@@ -72,7 +72,6 @@ class T17_ResourceProtectionCest
         $I->wait($wait);
 
         /* Update PrivateUser user group */
-
         $I->click($testPage::$privateUsersGroup);
         $I->wait($wait);
 
@@ -89,27 +88,23 @@ class T17_ResourceProtectionCest
         $I->wait($wait);
 
         /* Create actual ACL entry */
-
         $I->click($testPage::$addResourceGroupButton);
 
         $I->wait($wait);
 
         /* Set Resource Group */
-
         $I->click($testPage::$resourceGroupInput);
         $I->wait($wait);
 
         $I->click($testPage::$privateResourcesOption);
 
         /* Set Context */
-
         $I->click($testPage::$contextInput);
         $I->wait($wait);
 
         $I->click($testPage::$mgrOption);
 
         /* Set Role */
-
         $I->click($testPage::$authorityInput);
 
         $I->wait($wait+2);
@@ -125,7 +120,6 @@ class T17_ResourceProtectionCest
         $I->wait($wait);
 
         /* Save ACL entry */
-
         $I->click($testPage::$addResourcePanelSaveButton);
         $I->wait($wait);
         $I->reloadPage();
@@ -143,21 +137,18 @@ class T17_ResourceProtectionCest
         $I->see('Password');
 
         /* Login PrivateUser */
-
         $I->wait($wait);
         $loginPage->login('PrivateUser', 'somepassword');
         $I->see('Content');
         $I->see('Manage');
         $I->wait($wait);
 
-        /* See if Private resource is there */
+        /* Make sure Private resource is visible */
         $I->wait($wait);
         $I->see("PublicResource");
         $I->see("PrivateResource");
 
-
         /* Logout PrivateUser */
-
         $I->wait($wait);
         $loginPage->logout();
         $I->wait($wait);
@@ -170,13 +161,11 @@ class T17_ResourceProtectionCest
         $I->see('Manage');
         $I->wait($wait);
 
-        /* Make sure Private resource is not there */
-
+        /* Make sure Private resource is not visible */
         $I->see("PublicResource");
         $I->dontSee("PrivateResource");
 
         /* Logout PublicUser */
-
         $I->wait($wait);
         $loginPage->logout();
         $I->wait($wait);

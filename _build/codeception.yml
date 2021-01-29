@@ -7,6 +7,7 @@ paths:
 actor_suffix: Tester
 
 bootstrap: _bootstrap.php
+
 extensions:
     enabled:
        # Uncommenting the following line will put information

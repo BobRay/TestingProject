@@ -65,6 +65,7 @@ class T17_ResourceProtectionFinalCest
         /* Go to ACL panel */
         $I->wait($wait + 1);
         $I->moveMouseOver($testPage::$systemMenu);
+        $I->click($testPage::$systemMenu);
         $I->wait(1);
         $I->moveMouseOver($testPage::$acl_option);
 
@@ -72,8 +73,8 @@ class T17_ResourceProtectionFinalCest
         $I->wait($wait);
 
         /* Update PrivateUser user group */
-        $I->click($testPage::$privateUsersGroup);
-        $I->wait($wait);
+        $I->clickWithRightButton($testPage::$privateUsersGroup);
+        $I->wait($wait+2);
 
         $I->click($testPage::$updateUserGroupOption);
         $I->wait($wait);
@@ -126,7 +127,7 @@ class T17_ResourceProtectionFinalCest
 
         /* Make sure JoeTester can see PublicResource
            and can't see PrivateResource */
-        $I->wait($wait);
+        $I->wait($wait+1);
         $I->see("PublicResource");
         $I->dontSee("PrivateResource");
 

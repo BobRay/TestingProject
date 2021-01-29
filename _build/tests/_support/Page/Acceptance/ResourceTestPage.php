@@ -13,6 +13,7 @@ namespace Page\Acceptance;
 
 class ResourceTestPage
 {
+
     public static $systemMenu = '#limenu-admin';
 
     public static $acl_option = '#acls';
@@ -21,7 +22,8 @@ class ResourceTestPage
         "//span[starts-with(text(),'PrivateUsers')]";
 
     public static $updateUserGroupOption =
-        "//button[contains(text(), 'Update User Group')]";
+        // "//button[contains(text(), 'Update User Group')]";
+    "//span[starts-with(text(),'Update User Group')]";
 
     public static $permissionsTab =
         "//span[starts-with(@class,'x-tab-strip-text')

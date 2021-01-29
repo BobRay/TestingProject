@@ -21,7 +21,7 @@ $users = array(
     ),
 
     array(
-        'username' => 'JoeTester',
+        'username' => 'JoeTester2',
         'email' => 'someUser@gmail.com',
         'password' => 'TesterPassword',
         'active' => '1',

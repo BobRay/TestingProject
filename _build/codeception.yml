@@ -21,7 +21,8 @@ settings:
     memory_limit: 1024M
 
 coverage:
-    enabled: true
+    # Change to true to test coverage
+    enabled: false
     low_limit: 35
     high_limit: 70
 

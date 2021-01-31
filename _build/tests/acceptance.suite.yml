@@ -55,3 +55,18 @@ env:
                     - java -jar c:/Users/BobRay/Downloads/Selenium/selenium-server-standalone-3.141.59.jar
                     - C:/Users/BobRay/Downloads/selenium-drivers/chromedriver.exe
 
+    modx2:
+        bootstrap: _bootstrap2.php
+
+        modules:
+            config:
+                WebDriver:
+                    url: 'http://localhost/test/'
+
+    modx3:
+        bootstrap: _bootstrap3.php
+
+        modules:
+            config:
+                WebDriver:
+                    url: 'http://localhost/modx3/'

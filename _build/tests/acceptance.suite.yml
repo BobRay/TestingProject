@@ -1,8 +1,6 @@
 # Codeception Test Suite Configuration
 #
 # Suite for acceptance tests.
-# Perform tests in browser using the WebDriver or PhpBrowser.
-# If you need both WebDriver and PHPBrowser tests - create a separate suite.
 
 actor: AcceptanceTester
 
@@ -13,21 +11,47 @@ modules:
         - \Helper\Acceptance
         - WebDriver
         - Asserts
+
     config:
         WebDriver:
-            url: 'http://localhost/test/'
-            browser: 'chrome'
-            # browser: 'firefox'
-            window_size: 'maximize'
-            wait: 5
-            # window_size: false
-            #capabilities:
-               # chromeOptions:
-                    #args: ["--headless", "--disable-gpu", "--disable-extensions"]
+           url: 'http://localhost/test/'
+           browser: 'chrome'
+           window_size: 'maximize'
+           wait: 5
 
 extensions:
     enabled:
         - Codeception\Extension\RunProcess:
-            - java -jar c:/Users/BobRay/Downloads/Selenium/selenium-server-standalone-3.9.0.jar
+            - java -jar c:/Users/BobRay/Downloads/Selenium/selenium-server-standalone-3.141.59.jar
             - C:/Users/BobRay/Downloads/selenium-drivers/chromedriver.exe
-            # -  C:/Users/BobRay/Downloads/selenium-drivers/geckodriver.exe
+
+env:
+    firefox:
+        modules:
+            config:
+                WebDriver:
+                    url: 'http://localhost/test/'
+                    path: ''
+                    browser: 'firefox'
+                    window_size: 'maximize'
+                    wait: 5
+        extensions:
+            enabled:
+                - Codeception\Extension\RunProcess:
+                    - java -jar c:/Users/BobRay/Downloads/Selenium/selenium-server-standalone-3.141.59.jar
+                    - C:/Users/BobRay/Downloads/selenium-drivers/geckodriver.exe
+
+    chrome:
+        modules:
+            config:
+                WebDriver:
+                    url: 'http://localhost/test/'
+                    browser: 'chrome'
+                    window_size: 'maximize'
+                    wait: 5
+        extensions:
+            enabled:
+                - Codeception\Extension\RunProcess:
+                    - java -jar c:/Users/BobRay/Downloads/Selenium/selenium-server-standalone-3.141.59.jar
+                    - C:/Users/BobRay/Downloads/selenium-drivers/chromedriver.exe
+

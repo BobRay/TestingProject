@@ -33,6 +33,7 @@ class LoginPage
         $password = empty($password) ? self::$password : $password;
 
         $I->amOnPage(self::$managerUrl);
+        $I->wait(3);
         $I->fillField(self::$usernameField, $username);
         $I->fillField(self::$passwordField, $password);
         $I->click(self::$loginButton);

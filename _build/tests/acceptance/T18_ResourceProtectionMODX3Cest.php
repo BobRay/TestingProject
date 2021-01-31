@@ -174,7 +174,7 @@ class T18_ResourceProtectionMODX3FinalCest
         $loginPage->login('PublicUser', 'somepassword');
         $I->see('Content');
         $I->see('Manage');
-        $I->wait($wait);
+        $I->wait($wait+2);
 
         /* Make sure Private resource is not visible */
         $I->see("PublicResource");

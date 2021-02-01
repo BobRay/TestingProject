@@ -26,6 +26,7 @@ class LoginPage
         $this->tester = $I;
     }
 
+    /** @throws \Exception */
     public function login($username = '', $password = '') {
         /** @var \AcceptanceTester $I */
         $I = $this->tester;
@@ -33,7 +34,8 @@ class LoginPage
         $password = empty($password) ? self::$password : $password;
 
         $I->amOnPage(self::$managerUrl);
-        $I->wait(3);
+        $I->waitForElementVisible(self::$loginButton, 20);
+        $I->waitForElementVisible(self::$usernameField,20);
         $I->fillField(self::$usernameField, $username);
         $I->fillField(self::$passwordField, $password);
         $I->click(self::$loginButton);

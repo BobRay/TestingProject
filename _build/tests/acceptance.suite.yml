@@ -25,6 +25,10 @@ extensions:
             - java -jar c:/Users/BobRay/Downloads/Selenium/selenium-server-standalone-3.141.59.jar
             - C:/Users/BobRay/Downloads/selenium-drivers/chromedriver.exe
 
+################################################################
+# The code below will be ignored if no Environment is specified
+################################################################
+
 env:
     firefox:
         modules:

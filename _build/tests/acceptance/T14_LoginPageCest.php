@@ -20,5 +20,6 @@ class T14_LoginPageCest
         $I->see('Manage');
         $loginPage->logout();
         $I->wait(2);
+        $I->see('Password');
     }
 }

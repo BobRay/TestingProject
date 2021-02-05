@@ -132,7 +132,7 @@ class T15_ManagerUserCest
             $I->wait(2); //necessary
             $I->click($userPage::$userCloseButton);
         }
-
+        $loginPage->logout();
         /* Test database values for both users */
         foreach($users as $userFields) {
             $autoPassword = empty($userFields['password']);

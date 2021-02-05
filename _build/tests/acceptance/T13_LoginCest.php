@@ -7,6 +7,8 @@ class T13_LoginCest
     protected $modx;
     public function _before(AcceptanceTester $I)
     {
+        // lexicon->load() crashes with no $_SESSION set
+        $_SESSION['dummy'] = 'x';
         $this->modx = Fixtures::get('modx');
         $this->modx->lexicon->load('en:login');
     }

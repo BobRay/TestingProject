@@ -64,6 +64,7 @@ class Objects extends \AcceptanceTester
 
     public function _createUser($modx, $fields) {
         /** @var $modx modX */
+        // user->joinGroup() crashes with no $_SESSION set
         $_SESSION['dummy'] = 'x';
         $pw = $fields['password'];
         unset($fields['password']);

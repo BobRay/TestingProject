@@ -22,7 +22,9 @@ modules:
 extensions:
     enabled:
         - Codeception\Extension\RunProcess:
+            - echo "Launch Selenium in acceptance.suite.php"
             - java -jar c:/Users/BobRay/Downloads/Selenium/selenium-server-standalone-3.141.59.jar
+            - echo "Launch Chrome driver in acceptance.suite.php"
             - C:/Users/BobRay/Downloads/selenium-drivers/chromedriver.exe
 
 ################################################################
@@ -42,7 +44,9 @@ env:
         extensions:
             enabled:
                 - Codeception\Extension\RunProcess:
+                    - echo "Launching Selenium Server in acceptance.suite.php"
                     - java -jar c:/Users/BobRay/Downloads/Selenium/selenium-server-standalone-3.141.59.jar
+                    - echo "Launching geckodriver in acceptance.suite.php"
                     - C:/Users/BobRay/Downloads/selenium-drivers/geckodriver.exe
 
     chrome:
@@ -56,7 +60,9 @@ env:
         extensions:
             enabled:
                 - Codeception\Extension\RunProcess:
+                    - echo "Launch Selenium server in acceptance.suite.yml"
                     - java -jar c:/Users/BobRay/Downloads/Selenium/selenium-server-standalone-3.141.59.jar
+                    - echo "Launch Chrome driver in acceptance.suite.yml"
                     - C:/Users/BobRay/Downloads/selenium-drivers/chromedriver.exe
 
     modx2:

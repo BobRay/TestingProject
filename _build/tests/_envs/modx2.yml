@@ -1,0 +1,7 @@
+# `modx2` environment config goes here
+bootstrap: _bootstrap2.php
+
+modules:
+  config:
+    WebDriver:
+      url: 'http://localhost/test/'

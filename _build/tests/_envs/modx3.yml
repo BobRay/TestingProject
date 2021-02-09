@@ -1,0 +1,7 @@
+# `modx3` environment config goes here
+bootstrap: _bootstrap3.php
+
+modules:
+  config:
+    WebDriver:
+      url: 'http://localhost/modx3/'

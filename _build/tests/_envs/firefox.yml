@@ -1,0 +1,17 @@
+# `firefox` environment config goes here
+modules:
+  config:
+    WebDriver:
+      url: 'http://localhost/test/'
+      path: ''
+      browser: 'firefox'
+      window_size: 'maximize'
+      wait: 5
+extensions:
+  enabled:
+
+    - Codeception\Extension\RunProcess:
+        - echo "launch selenium server in firefox.yml"
+        - java -jar c:/Users/BobRay/Downloads/Selenium/selenium-server-standalone-3.141.59.jar
+        - echo "Launch geckodriver in firefox.yml"
+        - C:/Users/BobRay/Downloads/selenium-drivers/geckodriver.exe

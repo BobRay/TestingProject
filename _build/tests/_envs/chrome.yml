@@ -1,0 +1,16 @@
+# `chrome` environment config goes here
+
+modules:
+    config:
+        WebDriver:
+            url: 'http://localhost/test/'
+            browser: 'chrome'
+            window_size: 'maximize'
+            wait: 5
+extensions:
+    enabled:
+        - Codeception\Extension\RunProcess:
+            - echo "Launch Selenium server in chrome.yml"
+            - java -jar c:/Users/BobRay/Downloads/Selenium/selenium-server-standalone-3.141.59.jar
+            - echo "Launch Chrome driver in chrome.yml"
+            - C:/Users/BobRay/Downloads/selenium-drivers/chromedriver.exe

@@ -2,6 +2,11 @@
 #
 # Suite for acceptance tests.
 
+# enable conditional $I actions like $I->tryToSee()
+step_decorators:
+    - \Codeception\Step\TryTo
+    - \Codeception\Step\ConditionalAssertion
+
 actor: AcceptanceTester
 
 bootstrap: _bootstrap.php

@@ -5,7 +5,7 @@ use Page\Acceptance\LoginPagemodx3;
 use Page\Acceptance\ResourceTestPage;
 use Page\Acceptance\ResourceTestPagemodx3;
 
-class T18_ResourceProtectionMODX3FinalCest
+class T18_ResourceProtectionMODX3Cest
 {
 
     /** @var _generated\modX $modx */
@@ -63,7 +63,7 @@ class T18_ResourceProtectionMODX3FinalCest
 
         $wait = 2;
 
-        /* Login admin user JoeTester */
+        /* Login admin user JoeTester2 */
         if (strpos($env, 'modx3') !== false) {
             $loginPage = new LoginPagemodx3($I);
         } else {
@@ -139,13 +139,13 @@ class T18_ResourceProtectionMODX3FinalCest
         $I->wait($wait);
         $I->reloadPage();
 
-        /* Make sure JoeTester can see PublicResource
+        /* Make sure JoeTester2 can see PublicResource
            and can't see PrivateResource */
         $I->wait($wait+2);
         $I->see("PublicResource");
         $I->dontSee("PrivateResource");
 
-        /* Logout JoeTester */
+        /* Logout JoeTester2 */
         $I->wait($wait);
         $loginPage->logout();
         $I->wait($wait);

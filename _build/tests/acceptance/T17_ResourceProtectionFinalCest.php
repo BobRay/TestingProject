@@ -53,9 +53,9 @@ class T17_ResourceProtectionFinalCest
         $testPage = new ResourceTestPage($I);
         $wait = 2;
 
-        /* Login admin user JoeTester */
+        /* Login admin user JoeTester2 */
         $loginPage = new LoginPage($I);
-        $loginPage->login('JoeTester', 'TesterPassword');
+        $loginPage->login('JoeTester2', 'TesterPassword');
         $I->see('Content');
         $I->see('Manage');
         $I->wait($wait);
@@ -125,13 +125,13 @@ class T17_ResourceProtectionFinalCest
         $I->wait($wait);
         $I->reloadPage();
 
-        /* Make sure JoeTester can see PublicResource
+        /* Make sure JoeTester2 can see PublicResource
            and can't see PrivateResource */
         $I->wait($wait+1);
         $I->see("PublicResource");
         $I->dontSee("PrivateResource");
 
-        /* Logout JoeTester */
+        /* Logout JoeTester2 */
         $I->wait($wait);
         $loginPage->logout();
         $I->wait($wait);

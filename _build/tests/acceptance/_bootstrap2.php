@@ -1,4 +1,5 @@
 <?php
+/* MODX 2 _bootstrap file */
 use Codeception\Util\Fixtures;
 
 require_once 'c:/xampp/htdocs/addons/vendor/autoload.php';

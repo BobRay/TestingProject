@@ -3,6 +3,8 @@ namespace Step\Acceptance;
 
 class Objects extends \AcceptanceTester
 {
+    protected $categoriesArray = array();
+
     public function createRoles($modx, $roles)
     {
         $I = $this;
@@ -177,63 +179,78 @@ class Objects extends \AcceptanceTester
         }
     }
 
-    public function createCategories($modx)
+    public function createCategories($modx, $categories)
     {
+        foreach ($categories as $category) {
+            $o = $modx->getObject('modCategory',
+                array('category' => $category));
+            if ($o) {
+                $o->remove();
+            }
+            $c = $modx->newObject('modCategory');
+            $c->set('category', $category);
+            $success = $c->save();
+            assertTrue($success, 'Failed to save Category');
+            /* Set ID of category in $this->categoriesArray */
+            $cat = $modx->getObject('modCategory',
+                array('category' => $category));
+            if ($cat) {
+                $this->categoriesArray[$category] = $cat->get('id');
+            }
+        }
         $I = $this;
     }
 
-    public function removeCategories($modx)
+    public function removeCategories($modx, $categories)
     {
+        foreach( $categories as $category) {
+            $c = $modx->getObject('modCategory', array('category' => $category));
+            if ($c) {
+                $c->remove();
+            }
+        }
         $I = $this;
     }
 
-    public function createChunks($modx)
-    {
-        $I = $this;
+
+    public function createElements($modx, $elements) {
+
+        foreach($elements as $element) {
+            $nameField = 'name';
+            if ($element['class_key'] === 'modTemplate') {
+                $nameField = 'templatename';
+                $element[$nameField] = $element['name'];
+                unset($element['name']);
+            }
+            $o = $modx->getObject($element['class_key'],
+                array($nameField => $element[$nameField]));
+            if ($o) {
+                $o->remove();
+            }
+            $element['category'] =
+                $this->categoriesArray[$element['category']];
+            $object = $modx->newObject($element['class_key']);
+            $object->fromArray($element);
+            $object->save();
+            $o = $modx->getObject($element['class_key'],
+                array($nameField => $element[$nameField]));
+            assertInstanceOf($element['class_key'], $o);
+
+        }
+
+
     }
 
-    public function removeChunks($modx)
-    {
-        $I = $this;
-    }
-
-    public function createSnippets($modx)
-    {
-        $I = $this;
-    }
-
-    public function removeSnippets($modx)
-    {
-        $I = $this;
-    }
-
-    public function createPlugins($modx)
-    {
-        $I = $this;
-    }
-
-    public function removePlugins($modx)
-    {
-        $I = $this;
-    }
-
-    public function createTemplates($modx)
-    {
-        $I = $this;
-    }
-
-    public function removeTemplates($modx)
-    {
-        $I = $this;
-    }
-
-    public function createTVs($modx)
-    {
-        $I = $this;
-    }
-
-    public function removeTVs($modx)
-    {
-        $I = $this;
+    public function removeElements ($modx, $elements) {
+        foreach($elements as $element) {
+            $nameField = $element['class_key'] = 'modTemplate'
+                ? 'templatename'
+                : 'name';
+            $e = $modx->getObject($element['class_key'],
+                array($nameField => $element['name']));
+            if ($e) {
+                $e->remove();
+            }
+        }
     }
 }

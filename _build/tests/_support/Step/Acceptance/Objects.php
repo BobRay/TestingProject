@@ -243,7 +243,7 @@ class Objects extends \AcceptanceTester
 
     public function removeElements ($modx, $elements) {
         foreach($elements as $element) {
-            $nameField = $element['class_key'] = 'modTemplate'
+            $nameField = $element['class_key'] == 'modTemplate'
                 ? 'templatename'
                 : 'name';
             $e = $modx->getObject($element['class_key'],

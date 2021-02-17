@@ -37,7 +37,7 @@ class T19_ElementTestPageCest
     }
 
     public static function _after(\Step\Acceptance\Objects $I) {
-        return;  /* allows examination of objects and ACL */
+        // return;  /* allows examination of objects and ACL */
 
         $users = include codecept_data_dir() .
             '/user_data.php';

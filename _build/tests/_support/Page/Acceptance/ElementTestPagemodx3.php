@@ -31,7 +31,7 @@ class ElementTestPagemodx3
         "//span[starts-with(text(),'PrivateUsers')]";
 
     public static $updateUserGroupOption =
-        "//span[starts-with(text(),'Update User Group')]";
+        "//span[starts-with(text(),'Edit User Group')]";
 
     public static $permissionsTab =
         "//span[starts-with(@class,'x-tab-strip-text')

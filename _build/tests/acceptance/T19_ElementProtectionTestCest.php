@@ -5,7 +5,7 @@ use Page\Acceptance\LoginPagemodx3;
 use Page\Acceptance\ElementTestPage;
 use Page\Acceptance\ElementTestPagemodx3;
 
-class T19_ElementTestPageCest
+class T19_ElementProtectionTestCest
  {
 
     /** @var _generated\modX $modx */
@@ -33,6 +33,7 @@ class T19_ElementTestPageCest
         $I->createUserGroups($modx, self::USER_GROUPS);
         $I->createUsers($modx, $users);
         $I->createCategories($modx, self::CATEGORIES);
+        $I->wait(1);
         $I->createElements($modx, $elements);
     }
 
@@ -58,6 +59,8 @@ class T19_ElementTestPageCest
         @example ["Chunk"]
         @example ["Snippet"]
         @example ["Plugin"]
+     *
+     * @throws Exception
      */
     public function ElementProtectionTest(AcceptanceTester $I, \Codeception\Scenario $scenario, \Codeception\Example $example)
     {
@@ -82,6 +85,7 @@ class T19_ElementTestPageCest
         $I->see('Content');
         $I->see('Manage');
         $I->click($testPage::$elementsTab);
+        $I->wait(1);
         $this->_closeAll($I, $testPage);
         $I->wait($wait);
 
@@ -114,6 +118,7 @@ class T19_ElementTestPageCest
         $I->wait($wait);
 
         /* Create actual ACL entry */
+        $I->waitForElementClickable($testPage::$addCategoryButton);
         $I->click($testPage::$addCategoryButton);
 
         $I->wait($wait);
@@ -150,6 +155,7 @@ class T19_ElementTestPageCest
         $I->wait($wait);
 
         $I->wait($wait);
+
         $this->_openCurrent($I, $testPage, $example[0]);
 
         $I->wait($wait);
@@ -212,6 +218,7 @@ class T19_ElementTestPageCest
 
       foreach($openNodes as $node) {
           $I->tryToClick($page::$openNodes . "[1]");
+          $I->wait(.5);
       }
     }
 
@@ -219,6 +226,7 @@ class T19_ElementTestPageCest
          $page, string $name)
     {
         $x = 1;
+        $this->_closeAll($I, $page);
         $I->click($page::$elementsTab);
         $I->wait(1);
         switch($name) {
@@ -247,6 +255,7 @@ class T19_ElementTestPageCest
                 $I->wait(1);
                 break;
         }
+        $I->wait(1);
         $I->tryToClick('PublicElements');
         $I->wait(1);
         $I->tryToClick("PrivateElements");

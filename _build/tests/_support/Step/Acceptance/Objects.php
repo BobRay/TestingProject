@@ -148,16 +148,19 @@ class Objects extends \AcceptanceTester
 
     public function createResources($modx, $resources)
     {
+        $I = $this;
+
         $template = (int) $modx->getOption('default_template',
             null, 0, true);
-        $I = $this;
+
         foreach($resources as $resource) {
             $r = $modx->getObject('modResource',
                 array('alias' => $resource['alias']));
             if ($r) {
                 $r->remove();
             }
-            $modx->runProcessor('resource/create', $resource);
+            $modx->runProcessor('resource/create',
+                $resource);
 
             $r = $modx->getObject('modResource',
                 array('alias' => $resource['alias']), false);
@@ -181,6 +184,7 @@ class Objects extends \AcceptanceTester
 
     public function createCategories($modx, $categories)
     {
+        $I = $this;
         foreach ($categories as $category) {
             $o = $modx->getObject('modCategory',
                 array('category' => $category));
@@ -198,23 +202,21 @@ class Objects extends \AcceptanceTester
                 $this->categoriesArray[$category] = $cat->get('id');
             }
         }
-        $I = $this;
     }
 
     public function removeCategories($modx, $categories)
     {
+        $I = $this;
         foreach( $categories as $category) {
             $c = $modx->getObject('modCategory', array('category' => $category));
             if ($c) {
                 $c->remove();
             }
         }
-        $I = $this;
     }
 
-
     public function createElements($modx, $elements) {
-
+        $I = $this;
         foreach($elements as $element) {
             $nameField = 'name';
             if ($element['class_key'] === 'modTemplate') {
@@ -231,17 +233,15 @@ class Objects extends \AcceptanceTester
                 $this->categoriesArray[$element['category']];
             $object = $modx->newObject($element['class_key']);
             $object->fromArray($element);
-            $object->save();
-            $o = $modx->getObject($element['class_key'],
-                array($nameField => $element[$nameField]));
-            assertInstanceOf($element['class_key'], $o);
-
+            $object->set('category',$element['category']);
+            assertInstanceOf($element['class_key'], $object);
+            $success = $object->save();
+            assertTrue($success);
         }
-
-
     }
 
     public function removeElements ($modx, $elements) {
+        $I = $this;
         foreach($elements as $element) {
             $nameField = $element['class_key'] == 'modTemplate'
                 ? 'templatename'

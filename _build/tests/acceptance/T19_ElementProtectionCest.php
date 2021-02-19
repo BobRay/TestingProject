@@ -5,7 +5,7 @@ use Page\Acceptance\LoginPagemodx3;
 use Page\Acceptance\ElementTestPage;
 use Page\Acceptance\ElementTestPagemodx3;
 
-class T19_ElementProtectionTestCest
+class T19_ElementProtectionCest
  {
 
     /** @var _generated\modX $modx */

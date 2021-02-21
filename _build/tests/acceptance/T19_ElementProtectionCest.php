@@ -9,15 +9,14 @@ class T19_ElementProtectionCest
  {
 
     /** @var _generated\modX $modx */
-    public $modx;
-
+    public static $modx;
     private const ROLES = array('TestUser');
     private const USER_GROUPS = array('PublicUsers',
         'PrivateUsers');
     private const CATEGORIES =
         array('PublicElements', 'PrivateElements');
 
-    public static function _before(\Step\Acceptance\Objects $I) {
+    public static function setUpBeforeClass(\Step\Acceptance\Objects $I) {
 
         /* Load data files */
         $users = include codecept_data_dir() .
@@ -37,7 +36,7 @@ class T19_ElementProtectionCest
         $I->createElements($modx, $elements);
     }
 
-    public static function _after(\Step\Acceptance\Objects $I) {
+    public static function tearDownAfterClass(\Step\Acceptance\Objects $I) {
         // return;  /* allows examination of objects and ACL */
 
         $users = include codecept_data_dir() .
@@ -54,17 +53,18 @@ class T19_ElementProtectionCest
 
     }
 
-    /** @example ["Template"]
-        @example ["TV"]
-        @example ["Chunk"]
-        @example ["Snippet"]
-        @example ["Plugin"]
+    /** @example ["template"]
+        @example ["tv"]
+        @example ["chunk"]
+        @example ["snippet"]
+        @example ["plugin"]
      *
      * @throws Exception
      */
     public function ElementProtectionTest(AcceptanceTester $I, \Codeception\Scenario $scenario, \Codeception\Example $example)
     {
         $env = $scenario->current('env');
+        $wait = 1;
 
         if (strpos($env,'modx3') !== false) {
             $testPage = new ElementTestPagemodx3($I);
@@ -72,7 +72,7 @@ class T19_ElementProtectionCest
             $testPage = new ElementTestPage($I);
         }
 
-        $wait = 2;
+       
 
         /* Login admin user JoeTester2 */
         if (strpos($env, 'modx3') !== false) {
@@ -81,88 +81,77 @@ class T19_ElementProtectionCest
             $loginPage = new LoginPage($I);
         }
         $loginPage->login('JoeTester2', 'TesterPassword');
-
+        $I->wait($wait);
         $I->see('Content');
         $I->see('Manage');
         $I->click($testPage::$elementsTab);
-        $I->wait(1);
         $this->_closeAll($I, $testPage);
-        $I->wait($wait);
 
-        /* *** Create ACL entry *** */
+       /* *** Create ACL entry *** */
 
         /* Go to ACL panel */
-        $I->wait($wait + 1);
-        $I->moveMouseOver($testPage::$systemMenu);
+        $I->wait($wait);
         $I->click($testPage::$systemMenu);
-        $I->wait(1);
-        $I->moveMouseOver($testPage::$acl_option);
-
+        $I->wait($wait);
         $I->click($testPage::$acl_option);
         $I->wait($wait);
 
         /* Update PrivateUser user group */
-        $I->clickWithRightButton($testPage::$privateUsersGroup);
-        $I->wait($wait+2);
-
-        $I->click($testPage::$updateUserGroupOption);
         $I->wait($wait);
+        $I->clickWithRightButton($testPage::$privateUsersGroup);
+
+        $I->wait($wait);
+        $I->click($testPage::$updateUserGroupOption);
 
         /* Select Permissions top tab */
-        $I->click($testPage::$permissionsTab);
         $I->wait($wait);
+        $I->click($testPage::$permissionsTab);
 
         /* Select Element Category Access left tab */
+        $I->wait($wait);
         $I->click($testPage::$elementCategoryAccessTab);
 
-        $I->wait($wait);
-
         /* Create actual ACL entry */
-        $I->waitForElementClickable($testPage::$addCategoryButton);
+        $I->wait($wait);
         $I->click($testPage::$addCategoryButton);
 
-        $I->wait($wait);
-
         /* Set Category */
+        $I->wait($wait);
         $I->click($testPage::$categoryInput);
         $I->wait($wait);
-
         $I->click($testPage::$privateElementsOption);
 
         /* Set Context */
-        $I->click($testPage::$contextInput);
         $I->wait($wait);
+        $I->click($testPage::$contextInput);
 
+        $I->wait($wait);
         $I->click($testPage::$mgrOption);
 
         /* Set Role */
+        $I->wait($wait);
         $I->click($testPage::$authorityInput);
 
-        $I->wait($wait+2);
-
+        $I->wait($wait);
         $I->click($testPage::$testUserOption);
 
         /* Set Policy */
+        $I->wait($wait);
         $I->click($testPage::$policyInput);
         $I->wait($wait);
-
         $I->click($testPage::$elementOption);
 
-        $I->wait($wait);
-
         /* Save ACL entry */
-        $I->click($testPage::$addElementPanelSaveButton);
         $I->wait($wait);
-
+        $I->wait($wait);
+        $I->click($testPage::$addElementPanelSaveButton);
         $I->wait($wait);
 
         $this->_openCurrent($I, $testPage, $example[0]);
 
-        $I->wait($wait);
-
-
         /* Make sure JoeTester2 can see Public object
            and can't see Private Object */
+        $I->wait($wait);
         $I->see("Public" . $example[0]);
         $I->dontSee("Private" . $example[0]);
 
@@ -175,9 +164,11 @@ class T19_ElementProtectionCest
         /* Login PrivateUser */
         $I->wait($wait);
         $loginPage->login('PrivateUser', 'somepassword');
+        $I->wait($wait);
         $I->see('Content');
         $I->see('Manage');
-        $I->wait($wait);
+        $I->click($testPage::$elementsTab);
+        $this->_closeAll($I, $testPage);
         $this->_openCurrent($I, $testPage, $example[0]);
 
         /* Make sure Private Object is visible */
@@ -194,12 +185,15 @@ class T19_ElementProtectionCest
         /* Login PublicUser */
         $I->wait($wait);
         $loginPage->login('PublicUser', 'somepassword');
+        $I->wait($wait);
         $I->see('Content');
         $I->see('Manage');
-        $I->wait($wait+2);
+        $I->click($testPage::$elementsTab);
+        $this->_closeAll($I, $testPage);
         $this->_openCurrent($I, $testPage, $example[0]);
 
         /* Make sure Private object is not visible */
+        $I->wait($wait);
         $I->see("Public" . $example[0]);
         $I->dontSee("Private" . $example[0]);
 
@@ -214,50 +208,32 @@ class T19_ElementProtectionCest
 
     public function _closeAll(AcceptanceTester $I, $page) {
 
-      $openNodes =   $I->grabMultiple($page::$openNodes);
-
-      foreach($openNodes as $node) {
-          $I->tryToClick($page::$openNodes . "[1]");
-          $I->wait(.5);
-      }
+        $elementTypes = array(
+            'template',
+            'tv',
+            'chunk',
+            'snippet',
+            'plugin',
+        );
+        foreach ($elementTypes as $elementType) {
+            $I->tryToClick("//div/i[contains(@class, 'x-tree-elbow-minus')]/parent::div[@*[name()='ext:tree-node-id'] = 'n_type_{$elementType}']");
+        }
     }
 
     public function _openCurrent(AcceptanceTester $I,
-         $page, string $name)
+         $page, string $elementType)
     {
-        $x = 1;
-        $this->_closeAll($I, $page);
+        $wait = 1;
+        $I->wait($wait);
         $I->click($page::$elementsTab);
-        $I->wait(1);
-        switch($name) {
-            case 'Template':
-                $I->click("Templates");
-                $I->wait(1);
-                break;
+        $I->wait($wait +2);
+        $I->tryToClick("//div/i[contains(@class, 'x-tree-elbow-plus')]/parent::div[@*[name()='ext:tree-node-id'] = 'n_type_{$elementType}']");
 
-            case 'TV':
-                $I->click("Template Variables");
-                $I->wait(1);
-                break;
+        $I->wait($wait);
 
-            case 'Chunk':
-                $I->click("Chunks");
-                $I->wait(1);
-                break;
+        $I->tryToClick("//div[@*[name()='ext:tree-node-id'] = 'n_type_{$elementType}']/following-sibling::ul//i[contains(@class,'-plus')]/following-sibling::a/span[contains(text(),'PrivateElements')]");
 
-            case 'Snippet':
-                $I->click("Snippets");
-                $I->wait(1);
-                break;
-
-            case 'Plugin':
-                $I->click("Plugins");
-                $I->wait(1);
-                break;
-        }
-        $I->wait(1);
-        $I->tryToClick('PublicElements');
-        $I->wait(1);
-        $I->tryToClick("PrivateElements");
+        $I->wait($wait);
+        $I->tryToClick("//div[@*[name()='ext:tree-node-id'] = 'n_type_{$elementType}']/following-sibling::ul//i[contains(@class,'-plus')]/following-sibling::a/span[contains(text(),'PublicElements')]");
     }
 }

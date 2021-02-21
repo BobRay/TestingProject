@@ -16,7 +16,7 @@ class T19_ElementProtectionCest
     private const CATEGORIES =
         array('PublicElements', 'PrivateElements');
 
-    public static function setUpBeforeClass(\Step\Acceptance\Objects $I) {
+    public static function _before(\Step\Acceptance\Objects $I) {
 
         /* Load data files */
         $users = include codecept_data_dir() .
@@ -36,7 +36,7 @@ class T19_ElementProtectionCest
         $I->createElements($modx, $elements);
     }
 
-    public static function tearDownAfterClass(\Step\Acceptance\Objects $I) {
+    public static function _after(\Step\Acceptance\Objects $I) {
         // return;  /* allows examination of objects and ACL */
 
         $users = include codecept_data_dir() .
@@ -119,6 +119,7 @@ class T19_ElementProtectionCest
         $I->wait($wait);
         $I->click($testPage::$categoryInput);
         $I->wait($wait);
+        $I->scrollTo($testPage::$privateElementsOption);
         $I->click($testPage::$privateElementsOption);
 
         /* Set Context */

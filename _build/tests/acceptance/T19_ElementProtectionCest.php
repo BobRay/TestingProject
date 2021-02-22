@@ -49,6 +49,7 @@ class T19_ElementProtectionCest
         $I->removeUserGroups($modx, self::USER_GROUPS);
         $I->removeUsers($modx, $users);
         $I->removeElements($modx, $elements);
+        $I->wait(1);
         $I->removeCategories($modx, self::CATEGORIES);
 
     }
@@ -157,6 +158,7 @@ class T19_ElementProtectionCest
         $I->dontSee("Private" . $example[0]);
 
         /* Logout JoeTester2 */
+        $this->_closeCurrent($I, $testPage, $example[0]);
         $I->wait($wait);
         $loginPage->logout();
         $I->wait($wait);
@@ -178,6 +180,7 @@ class T19_ElementProtectionCest
         $I->see("Public" . $example[0]);
 
         /* Logout PrivateUser */
+        $this->_closeCurrent($I, $testPage, $example[0]);
         $I->wait($wait);
         $loginPage->logout();
         $I->wait($wait);
@@ -199,6 +202,7 @@ class T19_ElementProtectionCest
         $I->dontSee("Private" . $example[0]);
 
         /* Logout PublicUser */
+        $this->_closeCurrent($I, $testPage, $example[0]);
         $I->wait($wait);
         $loginPage->logout();
         $I->wait($wait);
@@ -242,7 +246,7 @@ class T19_ElementProtectionCest
         $wait = 1;
         $I->wait($wait);
         $I->click($page::$elementsTab);
-        $I->wait($wait +2);
+        $I->wait($wait + 1);
         $I->tryToClick("//div/i[contains(@class, 'x-tree-elbow-plus')]/parent::div[@*[name()='ext:tree-node-id'] = 'n_type_{$elementType}']");
 
         $I->wait($wait);
@@ -251,5 +255,10 @@ class T19_ElementProtectionCest
 
         $I->wait($wait);
         $I->tryToClick("//div[@*[name()='ext:tree-node-id'] = 'n_type_{$elementType}']/following-sibling::ul//i[contains(@class,'-plus')]/following-sibling::a/span[contains(text(),'PublicElements')]");
+    }
+
+    public function _closeCurrent(AcceptanceTester $I,
+        $page, string $elementType) {
+        $I->tryToClick("//div/i[contains(@class, 'x-tree-elbow-minus')]/parent::div[@*[name()='ext:tree-node-id'] = 'n_type_{$elementType}']");
     }
 }

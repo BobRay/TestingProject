@@ -85,7 +85,7 @@ class T19_ElementProtectionCest
         $I->see('Content');
         $I->see('Manage');
         $I->click($testPage::$elementsTab);
-        $this->_closeAll($I, $testPage);
+        $this->_closeAll($I, $testPage, $example[0]);
 
        /* *** Create ACL entry *** */
 
@@ -169,7 +169,7 @@ class T19_ElementProtectionCest
         $I->see('Content');
         $I->see('Manage');
         $I->click($testPage::$elementsTab);
-        $this->_closeAll($I, $testPage);
+        $this->_closeAll($I, $testPage, $example[0]);
         $this->_openCurrent($I, $testPage, $example[0]);
 
         /* Make sure Private Object is visible */
@@ -190,7 +190,7 @@ class T19_ElementProtectionCest
         $I->see('Content');
         $I->see('Manage');
         $I->click($testPage::$elementsTab);
-        $this->_closeAll($I, $testPage);
+        $this->_closeAll($I, $testPage, $example[0]);
         $this->_openCurrent($I, $testPage, $example[0]);
 
         /* Make sure Private object is not visible */
@@ -205,9 +205,15 @@ class T19_ElementProtectionCest
         $I->see('Password');
     }
 
+/** @throws Exception */
+    public function _closeAll(AcceptanceTester $I, $page, $currentElement) {
 
-    public function _closeAll(AcceptanceTester $I, $page) {
-
+        try {
+            $openNodes = $I->grabTextFrom("//i[contains(@class,'tree-elbow-minus')]");
+        } catch (\Exception $e) {
+            return;
+        }
+        $count = count($openNodes);
         $elementTypes = array(
             'template',
             'tv',
@@ -216,7 +222,17 @@ class T19_ElementProtectionCest
             'plugin',
         );
         foreach ($elementTypes as $elementType) {
-            $I->tryToClick("//div/i[contains(@class, 'x-tree-elbow-minus')]/parent::div[@*[name()='ext:tree-node-id'] = 'n_type_{$elementType}']");
+            /* Don't close current element */
+            if ($elementType == $currentElement) {
+                continue;
+            }
+            $success = $I->tryToClick("//div/i[contains(@class, 'x-tree-elbow-minus')]/parent::div[@*[name()='ext:tree-node-id'] = 'n_type_{$elementType}']");
+            if ($success) {
+                $count--;
+            }
+            if ($count <= 0) {
+                return;
+            }
         }
     }
 

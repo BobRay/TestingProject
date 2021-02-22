@@ -13,6 +13,8 @@ namespace Page\Acceptance;
 
 class ResourceTestPage
 {
+    /* Resources tab */
+    public static $resourcesTab = "//li[@id='modx-leftbar-tabpanel__modx-resource-tree']";
 
     public static $systemMenu = '#limenu-admin';
 
@@ -86,5 +88,4 @@ class ResourceTestPage
     {
         $this->acceptanceTester = $I;
     }
-
 }

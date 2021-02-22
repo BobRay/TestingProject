@@ -61,6 +61,7 @@ class T18_ResourceProtectionMODX3Cest
             $testPage = new ResourceTestPage($I);
         }
 
+
         $wait = 2;
 
         /* Login admin user JoeTester2 */
@@ -73,6 +74,8 @@ class T18_ResourceProtectionMODX3Cest
         $I->see('Content');
         $I->see('Manage');
         $I->wait($wait);
+        /* Make sure resource tree is visible */
+        $I->click($testPage::$resourcesTab);
 
         /* *** Create ACL entry *** */
 
@@ -157,6 +160,8 @@ class T18_ResourceProtectionMODX3Cest
         $I->see('Content');
         $I->see('Manage');
         $I->wait($wait);
+        /* Make sure resource tree is visible */
+        $I->click($testPage::$resourcesTab);
 
         /* Make sure Private resource is visible */
         $I->wait($wait);
@@ -174,6 +179,8 @@ class T18_ResourceProtectionMODX3Cest
         $loginPage->login('PublicUser', 'somepassword');
         $I->see('Content');
         $I->see('Manage');
+        /* Make sure resource tree is visible */
+        $I->click($testPage::$resourcesTab);
         $I->wait($wait+2);
 
         /* Make sure Private resource is not visible */

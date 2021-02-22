@@ -13,6 +13,9 @@ namespace Page\Acceptance;
 
 class ResourceTestPagemodx3
 {
+    /* Resources tab */
+    public static $resourcesTab = "//li[@id='modx-leftbar-tabpanel__modx-resource-tree']";
+
     public static $systemMenu = '#limenu-admin';
 
     public static $acl_option = '#acls';
@@ -22,7 +25,7 @@ class ResourceTestPagemodx3
 
     public static $updateUserGroupOption =
         // "//button[contains(text(), 'Update User Group')]";
-    "//span[starts-with(text(),'Update User Group')]";
+    "//span[starts-with(text(),'Edit User Group')]";
 
     public static $permissionsTab =
         "//span[starts-with(@class,'x-tab-strip-text')
@@ -85,5 +88,4 @@ class ResourceTestPagemodx3
     {
         $this->acceptanceTester = $I;
     }
-
 }

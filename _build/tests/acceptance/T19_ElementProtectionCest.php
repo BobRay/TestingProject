@@ -203,7 +203,6 @@ class T19_ElementProtectionCest
         $loginPage->logout();
         $I->wait($wait);
         $I->see('Password');
-        $this->_closeAll($I, $testPage);
     }
 
 

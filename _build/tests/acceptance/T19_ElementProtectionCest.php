@@ -19,7 +19,7 @@ class T19_ElementProtectionCest
     public static function _before(\Step\Acceptance\Objects $I) {
 
         /* Load data files */
-        $users = include codecept_data_dir() .
+      $users = include codecept_data_dir() .
             '/user_data.php';
 
         $elements = include codecept_data_dir() .
@@ -88,7 +88,7 @@ class T19_ElementProtectionCest
         $I->click($testPage::$elementsTab);
         $this->_closeAll($I, $testPage, $example[0]);
 
-       /* *** Create ACL entry *** */
+        /* *** Create ACL entry *** */
 
         /* Go to ACL panel */
         $I->wait($wait);
@@ -119,7 +119,7 @@ class T19_ElementProtectionCest
         /* Set Category */
         $I->wait($wait);
         $I->click($testPage::$categoryInput);
-        $I->wait($wait);
+        $I->wait($wait + 1);
         $I->scrollTo($testPage::$privateElementsOption);
         $I->click($testPage::$privateElementsOption);
 
@@ -149,6 +149,8 @@ class T19_ElementProtectionCest
         $I->click($testPage::$addElementPanelSaveButton);
         $I->wait($wait);
 
+        $this->aclCreated = true;
+
         $this->_openCurrent($I, $testPage, $example[0]);
 
         /* Make sure JoeTester2 can see Public object
@@ -158,7 +160,6 @@ class T19_ElementProtectionCest
         $I->dontSee("Private" . $example[0]);
 
         /* Logout JoeTester2 */
-        $this->_closeCurrent($I, $testPage, $example[0]);
         $I->wait($wait);
         $loginPage->logout();
         $I->wait($wait);
@@ -180,7 +181,6 @@ class T19_ElementProtectionCest
         $I->see("Public" . $example[0]);
 
         /* Logout PrivateUser */
-        $this->_closeCurrent($I, $testPage, $example[0]);
         $I->wait($wait);
         $loginPage->logout();
         $I->wait($wait);
@@ -201,8 +201,8 @@ class T19_ElementProtectionCest
         $I->see("Public" . $example[0]);
         $I->dontSee("Private" . $example[0]);
 
+        $this->_closeAll($I, $testPage);
         /* Logout PublicUser */
-        $this->_closeCurrent($I, $testPage, $example[0]);
         $I->wait($wait);
         $loginPage->logout();
         $I->wait($wait);
@@ -210,14 +210,8 @@ class T19_ElementProtectionCest
     }
 
 /** @throws Exception */
-    public function _closeAll(AcceptanceTester $I, $page, $currentElement) {
+    public function _closeAll(AcceptanceTester $I, $page) {
 
-        try {
-            $openNodes = $I->grabTextFrom("//i[contains(@class,'tree-elbow-minus')]");
-        } catch (\Exception $e) {
-            return;
-        }
-        $count = count($openNodes);
         $elementTypes = array(
             'template',
             'tv',
@@ -226,17 +220,7 @@ class T19_ElementProtectionCest
             'plugin',
         );
         foreach ($elementTypes as $elementType) {
-            /* Don't close current element */
-            if ($elementType == $currentElement) {
-                continue;
-            }
             $success = $I->tryToClick("//div/i[contains(@class, 'x-tree-elbow-minus')]/parent::div[@*[name()='ext:tree-node-id'] = 'n_type_{$elementType}']");
-            if ($success) {
-                $count--;
-            }
-            if ($count <= 0) {
-                return;
-            }
         }
     }
 
@@ -255,10 +239,5 @@ class T19_ElementProtectionCest
 
         $I->wait($wait);
         $I->tryToClick("//div[@*[name()='ext:tree-node-id'] = 'n_type_{$elementType}']/following-sibling::ul//i[contains(@class,'-plus')]/following-sibling::a/span[contains(text(),'PublicElements')]");
-    }
-
-    public function _closeCurrent(AcceptanceTester $I,
-        $page, string $elementType) {
-        $I->tryToClick("//div/i[contains(@class, 'x-tree-elbow-minus')]/parent::div[@*[name()='ext:tree-node-id'] = 'n_type_{$elementType}']");
     }
 }

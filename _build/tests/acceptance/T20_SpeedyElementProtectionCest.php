@@ -240,7 +240,7 @@ class T20_SpeedyElementProtectionCest
     public function _closeAll(AcceptanceTester $I, $page, $currentElement) {
 
         try {
-            $openNodes = $I->grabTextFrom("//i[contains(@class,'tree-elbow-minus')]");
+            $openNodes = $I->grabTextFrom($page::$openNodes);
         } catch (\Exception $e) {
             return;
         }

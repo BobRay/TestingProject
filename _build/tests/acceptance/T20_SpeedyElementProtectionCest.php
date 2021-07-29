@@ -1,4 +1,6 @@
 <?php
+
+use Codeception\Scenario;
 use Codeception\Util\Fixtures;
 use Page\Acceptance\LoginPage;
 use Page\Acceptance\LoginPagemodx3;
@@ -59,7 +61,7 @@ class T20_SpeedyElementProtectionCest
 
     function beforeAllTests(Objects $I) {
         /* Runs before all tests */
-        $x = 1;
+
         /* Load data files */
         $users = include codecept_data_dir() .
             '/user_data.php';
@@ -86,7 +88,7 @@ class T20_SpeedyElementProtectionCest
      *
      * @throws Exception
      */
-    public function ElementProtectionTest(AcceptanceTester $I, \Codeception\Scenario $scenario, \Codeception\Example $example)
+    public function ElementProtectionTest(AcceptanceTester $I, Scenario $scenario, \Codeception\Example $example)
     {
         $env = $scenario->current('env');
         $wait = 1;
@@ -110,7 +112,7 @@ class T20_SpeedyElementProtectionCest
         $I->see('Content');
         $I->see('Manage');
         $I->click($testPage::$elementsTab);
-        $this->_closeAll($I, $testPage, $example[0]);
+        $this->_closeAll($I, $testPage);
 
         if (! $this->aclCreated) {
             /* *** Create ACL entry *** */
@@ -186,7 +188,7 @@ class T20_SpeedyElementProtectionCest
         $I->dontSee("Private" . $example[0]);
 
         /* Logout JoeTester2 */
-        $this->_closeCurrent($I, $testPage, $example[0]);
+        $this->_closeCurrent($I, $example[0]);
         $I->wait($wait);
         $loginPage->logout();
         $I->wait($wait);
@@ -199,7 +201,7 @@ class T20_SpeedyElementProtectionCest
         $I->see('Content');
         $I->see('Manage');
         $I->click($testPage::$elementsTab);
-        $this->_closeAll($I, $testPage, $example[0]);
+        $this->_closeAll($I, $testPage);
         $this->_openCurrent($I, $testPage, $example[0]);
 
         /* Make sure Private Object is visible */
@@ -208,7 +210,7 @@ class T20_SpeedyElementProtectionCest
         $I->see("Public" . $example[0]);
 
         /* Logout PrivateUser */
-        $this->_closeCurrent($I, $testPage, $example[0]);
+        $this->_closeCurrent($I, $example[0]);
         $I->wait($wait);
         $loginPage->logout();
         $I->wait($wait);
@@ -221,7 +223,7 @@ class T20_SpeedyElementProtectionCest
         $I->see('Content');
         $I->see('Manage');
         $I->click($testPage::$elementsTab);
-        $this->_closeAll($I, $testPage, $example[0]);
+        $this->_closeAll($I, $testPage);
         $this->_openCurrent($I, $testPage, $example[0]);
 
         /* Make sure Private object is not visible */
@@ -230,7 +232,7 @@ class T20_SpeedyElementProtectionCest
         $I->dontSee("Private" . $example[0]);
 
         /* Logout PublicUser */
-        $this->_closeCurrent($I, $testPage, $example[0]);
+        $this->_closeCurrent($I, $example[0]);
         $I->wait($wait);
         $loginPage->logout();
         $I->wait($wait);
@@ -238,11 +240,11 @@ class T20_SpeedyElementProtectionCest
     }
 
 /** @throws Exception */
-    public function _closeAll(AcceptanceTester $I, $page, $currentElement) {
+    public function _closeAll(AcceptanceTester $I, $page) {
 
         try {
             $openNodes = $I->grabTextFrom($page::$openNodes);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return;
         }
         $count = count($openNodes);
@@ -282,12 +284,11 @@ class T20_SpeedyElementProtectionCest
     }
 
     public function _closeCurrent(AcceptanceTester $I,
-        $page, string $elementType) {
+        string $elementType) {
         $I->tryToClick("//div/i[contains(@class, 'x-tree-elbow-minus')]/parent::div[@*[name()='ext:tree-node-id'] = 'n_type_{$elementType}']");
     }
 
     function afterAllTests(Objects $I) {
-        $x = 1;
         // Runs after all tests
         $users = include codecept_data_dir() .
             '/user_data.php';

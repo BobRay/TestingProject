@@ -4,6 +4,7 @@ use Page\Acceptance\LoginPage;
 use Page\Acceptance\LoginPagemodx3;
 use Page\Acceptance\ElementTestPage;
 use Page\Acceptance\ElementTestPagemodx3;
+use Step\Acceptance\Objects;
 
 class T20_SpeedyElementProtectionCest
  {
@@ -18,7 +19,7 @@ class T20_SpeedyElementProtectionCest
 
     public $aclCreated = false;
 
-    public static function _before(\Step\Acceptance\Objects $I) {
+    public static function _before(Objects $I) {
 
         /* Load data files */
 /*      $users = include codecept_data_dir() .
@@ -38,7 +39,7 @@ class T20_SpeedyElementProtectionCest
         $I->createElements($modx, $elements);*/
     }
 
-    public static function _after(\Step\Acceptance\Objects $I) {
+    public static function _after(Objects $I) {
         // return;  /* allows examination of objects and ACL */
 
         /*$users = include codecept_data_dir() .
@@ -56,8 +57,8 @@ class T20_SpeedyElementProtectionCest
 
     }
 
-    function beforeAllTests(\Step\Acceptance\Objects $I) {
-        /* Runs after all tests */
+    function beforeAllTests(Objects $I) {
+        /* Runs before all tests */
         $x = 1;
         /* Load data files */
         $users = include codecept_data_dir() .
@@ -285,7 +286,7 @@ class T20_SpeedyElementProtectionCest
         $I->tryToClick("//div/i[contains(@class, 'x-tree-elbow-minus')]/parent::div[@*[name()='ext:tree-node-id'] = 'n_type_{$elementType}']");
     }
 
-    function afterAllTests(\Step\Acceptance\Objects $I) {
+    function afterAllTests(Objects $I) {
         $x = 1;
         // Runs after all tests
         $users = include codecept_data_dir() .

@@ -21,43 +21,6 @@ class T20_SpeedyElementProtectionCest
 
     public $aclCreated = false;
 
-    public static function _before(Objects $I) {
-
-        /* Load data files */
-/*      $users = include codecept_data_dir() .
-            '/user_data.php';
-
-        $elements = include codecept_data_dir() .
-            '/element_data.php';
-
-
-        $modx = Fixtures::get('modx');
-        assertTrue($modx instanceof modX);
-        $I->createRoles($modx, self::ROLES);
-        $I->createUserGroups($modx, self::USER_GROUPS);
-        $I->createUsers($modx, $users);
-        $I->createCategories($modx, self::CATEGORIES);
-        $I->wait(1);
-        $I->createElements($modx, $elements);*/
-    }
-
-    public static function _after(Objects $I) {
-        // return;  /* allows examination of objects and ACL */
-
-        /*$users = include codecept_data_dir() .
-            '/user_data.php';
-        $elements = include codecept_data_dir() .
-            '/element_data.php';
-        $modx = Fixtures::get('modx');
-        assertTrue($modx instanceof modX);
-        $I->removeRoles($modx, self::ROLES);
-        $I->removeUserGroups($modx, self::USER_GROUPS);
-        $I->removeUsers($modx, $users);
-        $I->removeElements($modx, $elements);
-        $I->wait(1);
-        $I->removeCategories($modx, self::CATEGORIES);*/
-
-    }
 
     function beforeAllTests(Objects $I) {
         /* Runs before all tests */

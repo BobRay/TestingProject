@@ -1,9 +1,12 @@
 <?php
+
+use Codeception\Scenario;
 use Codeception\Util\Fixtures;
 use Page\Acceptance\LoginPage;
 use Page\Acceptance\LoginPagemodx3;
 use Page\Acceptance\ElementTestPage;
 use Page\Acceptance\ElementTestPagemodx3;
+use Step\Acceptance\Objects;
 
 class T19_ElementProtectionCest
  {
@@ -16,7 +19,7 @@ class T19_ElementProtectionCest
     private const CATEGORIES =
         array('PublicElements', 'PrivateElements');
 
-    public static function _before(\Step\Acceptance\Objects $I) {
+    public static function _before(Objects $I) {
 
         /* Load data files */
       $users = include codecept_data_dir() .
@@ -36,7 +39,7 @@ class T19_ElementProtectionCest
         $I->createElements($modx, $elements);
     }
 
-    public static function _after(\Step\Acceptance\Objects $I) {
+    public static function _after(Objects $I) {
         // return;  /* allows examination of objects and ACL */
 
         $users = include codecept_data_dir() .
@@ -62,7 +65,7 @@ class T19_ElementProtectionCest
      *
      * @throws Exception
      */
-    public function ElementProtectionTest(AcceptanceTester $I, \Codeception\Scenario $scenario, \Codeception\Example $example)
+    public function ElementProtectionTest(AcceptanceTester $I, Scenario $scenario, \Codeception\Example $example)
     {
         $env = $scenario->current('env');
         $wait = 1;
@@ -86,7 +89,7 @@ class T19_ElementProtectionCest
         $I->see('Content');
         $I->see('Manage');
         $I->click($testPage::$elementsTab);
-        $this->_closeAll($I, $testPage, $example[0]);
+        $this->_closeAll($I);
 
         /* *** Create ACL entry *** */
 
@@ -172,7 +175,7 @@ class T19_ElementProtectionCest
         $I->see('Content');
         $I->see('Manage');
         $I->click($testPage::$elementsTab);
-        $this->_closeAll($I, $testPage, $example[0]);
+        $this->_closeAll($I);
         $this->_openCurrent($I, $testPage, $example[0]);
 
         /* Make sure Private Object is visible */
@@ -193,7 +196,7 @@ class T19_ElementProtectionCest
         $I->see('Content');
         $I->see('Manage');
         $I->click($testPage::$elementsTab);
-        $this->_closeAll($I, $testPage, $example[0]);
+        $this->_closeAll($I);
         $this->_openCurrent($I, $testPage, $example[0]);
 
         /* Make sure Private object is not visible */
@@ -201,7 +204,7 @@ class T19_ElementProtectionCest
         $I->see("Public" . $example[0]);
         $I->dontSee("Private" . $example[0]);
 
-        $this->_closeAll($I, $testPage);
+        $this->_closeAll($I);
         /* Logout PublicUser */
         $I->wait($wait);
         $loginPage->logout();
@@ -210,7 +213,7 @@ class T19_ElementProtectionCest
     }
 
 /** @throws Exception */
-    public function _closeAll(AcceptanceTester $I, $page) {
+    public function _closeAll(AcceptanceTester $I) {
 
         $elementTypes = array(
             'template',

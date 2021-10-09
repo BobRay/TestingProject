@@ -45,16 +45,11 @@ class T3_UserErrorMessageTest extends \Codeception\Test\Unit {
     public function testConstructorAllBad() {
         $user =  $this->make(User3::class,
             array(
-                'validateUsername' => function () {
-                    return false;
-                },
-                'validateEmail' => function () {
-                    return false;
-                },
-                'validatePhone' => function () {
-                    return false;
-                },
-            ));
+                'validateUsername' => false,
+                'validateEmail' => false,
+                'validatePhone' => false,
+            )
+        );
 
         $user->__construct(array(
             'username' => 'Bobby',
@@ -74,18 +69,12 @@ class T3_UserErrorMessageTest extends \Codeception\Test\Unit {
     /** @throws Exception */
     public function testConstructorAllGood() {
         $user = $this->make(User3::class,
-            array(
-                'validateUsername' => function () {
-                    return true;
-                },
-                'validateEmail' => function () {
-                    return true;
-                },
-                'validatePhone' => function () {
-                    return true;
-                },
-
-            ));
+          array(
+            'validateUsername' => true,
+            'validateEmail' => true,
+            'validatePhone' => true,
+          )
+        );
 
         $user->__construct(array(
             'username' => 'Bobby',
@@ -101,17 +90,12 @@ class T3_UserErrorMessageTest extends \Codeception\Test\Unit {
     public function testConstructorBadUsernameOnly() {
 
         $user =  $this->make(User3::class,
-            array(
-                'validateUsername' => function () {
-                    return false;
-                },
-                'validateEmail' => function () {
-                    return true;
-                },
-                'validatePhone' => function () {
-                    return true;
-                }
-            ));
+          array(
+            'validateUsername' => false,
+            'validateEmail' => true,
+            'validatePhone' => true,
+          )
+        );
 
         $user->__construct(array(
             'username' => 'Bobby',
@@ -130,17 +114,12 @@ class T3_UserErrorMessageTest extends \Codeception\Test\Unit {
     public function testConstructorBadEmailOnly() {
 
         $user =  $this->make(User3::class,
-            array(
-                'validateEmail' => function () {
-                    return false;
-                },
-                'validateUsername' => function () {
-                    return true;
-                },
-                'validatePhone' => function () {
-                    return true;
-                },
-            ));
+          array(
+            'validateUsername' => true,
+            'validateEmail' => false,
+            'validatePhone' => true,
+          )
+        );
 
         $user->__construct(array(
             'username' => 'Bobby',
@@ -157,17 +136,12 @@ class T3_UserErrorMessageTest extends \Codeception\Test\Unit {
     /** @throws Exception */
     public function testConstructorBadPhoneOnly() {
         $user =  $this->make(User3::class,
-            array(
-                'validateEmail' => function () {
-                    return true;
-                },
-                'validateUsername' => function () {
-                    return true;
-                },
-                'validatePhone' => function () {
-                    return false;
-                },
-            ));
+          array(
+            'validateUsername' => true,
+            'validateEmail' => true,
+            'validatePhone' => false,
+          )
+        );
 
         $user->__construct(array(
             'username' => 'Bobby',
@@ -185,17 +159,12 @@ class T3_UserErrorMessageTest extends \Codeception\Test\Unit {
     public function testConstructorUnknownFieldOnly() {
 
         $user =  $this->make(User3::class,
-            array(
-                'validateEmail' => function () {
-                    return true;
-                },
-                'validateUsername' => function () {
-                    return true;
-                },
-                'validatePhone' => function () {
-                    return true;
-                },
-            ));
+          array(
+            'validateUsername' => true,
+            'validateEmail' => true,
+            'validatePhone' => true,
+          )
+        );
 
         $user->__construct(array(
             'username' => 'Bobby',

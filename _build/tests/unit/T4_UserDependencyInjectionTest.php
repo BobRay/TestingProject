@@ -31,16 +31,11 @@ class T4_UserDependencyInjectionTest extends \Codeception\Test\Unit {
     public function testConstructorWithParams() {
         $validator = $this->make(Validator::class,
             array(
-                'validateUsername' => function () {
-                    return true;
-                },
-                'validateEmail' => function () {
-                    return true;
-                },
-                'validatePhone' => function () {
-                    return true;
-                },
-            ));
+                'validateUsername' => true,
+                'validateEmail' => true,
+                'validatePhone' => true,
+            )
+        );
         $user = new User4($validator, $this->fields);
         assertInstanceOf('User4', $user);
         assertEquals('BobRay', $user->get('username'));
@@ -63,16 +58,11 @@ class T4_UserDependencyInjectionTest extends \Codeception\Test\Unit {
     public function testConstructorAllBad() {
         $validator =  $this->make(Validator::class,
             array(
-                'validateUsername' => function () {
-                    return false;
-                },
-                'validateEmail' => function () {
-                    return false;
-                },
-                'validatePhone' => function () {
-                    return false;
-                },
-            ));
+                'validateUsername' => false,
+                'validateEmail' => false,
+                'validatePhone' => false,
+            )
+        );
         $fields = $this->fields;
         $fields['invalidField'] = '';
         $user = new User4($validator, $fields);
@@ -90,17 +80,11 @@ class T4_UserDependencyInjectionTest extends \Codeception\Test\Unit {
     public function testConstructorAllGood() {
         $validator = $this->make(Validator::class,
             array(
-                'validateUsername' => function () {
-                    return true;
-                },
-                'validateEmail' => function () {
-                    return true;
-                },
-                'validatePhone' => function () {
-                    return true;
-                },
-
-            ));
+                'validateUsername' => true,
+                'validateEmail' => true,
+                'validatePhone' => true,
+            )
+        );
 
         $user = new User4($validator, $this->fields);
 
@@ -114,16 +98,11 @@ class T4_UserDependencyInjectionTest extends \Codeception\Test\Unit {
 
         $validator =  $this->make(Validator::class,
             array(
-                'validateUsername' => function () {
-                    return false;
-                },
-                'validateEmail' => function () {
-                    return true;
-                },
-                'validatePhone' => function () {
-                    return true;
-                }
-            ));
+                'validateUsername' => false,
+                'validateEmail' => true,
+                'validatePhone' => true,
+            )
+        );
 
         $user = new User4($validator, $this->fields);
 
@@ -139,16 +118,11 @@ class T4_UserDependencyInjectionTest extends \Codeception\Test\Unit {
 
         $validator =  $this->make(Validator::class,
             array(
-                'validateEmail' => function () {
-                    return false;
-                },
-                'validateUsername' => function () {
-                    return true;
-                },
-                'validatePhone' => function () {
-                    return true;
-                },
-            ));
+                'validateUsername' => true,
+                'validateEmail' => false,
+                'validatePhone' => true,
+            )
+        );
 
         $user = new User4($validator, $this->fields);
 
@@ -163,16 +137,11 @@ class T4_UserDependencyInjectionTest extends \Codeception\Test\Unit {
     public function testConstructorBadPhoneOnly() {
         $validator =  $this->make(Validator::class,
             array(
-                'validateEmail' => function () {
-                    return true;
-                },
-                'validateUsername' => function () {
-                    return true;
-                },
-                'validatePhone' => function () {
-                    return false;
-                },
-            ));
+                'validateUsername' => true,
+                'validateEmail' => true,
+                'validatePhone' => false,
+            )
+        );
 
         $user = new User4($validator, $this->fields);
 
@@ -187,16 +156,11 @@ class T4_UserDependencyInjectionTest extends \Codeception\Test\Unit {
 
         $validator =  $this->make(Validator::class,
             array(
-                'validateEmail' => function () {
-                    return true;
-                },
-                'validateUsername' => function () {
-                    return true;
-                },
-                'validatePhone' => function () {
-                    return true;
-                },
-            ));
+                'validateUsername' => true,
+                'validateEmail' => true,
+                'validatePhone' => true,
+            )
+        );
 
         $fields = $this->fields;
         $fields['invalidField'] = '';

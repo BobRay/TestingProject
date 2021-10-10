@@ -32,16 +32,11 @@ class T5_UserMockingTest extends \Codeception\Test\Unit
     public function testConstructorWithParams() {
         $validator = $this->make(Validator::class,
             array(
-                'validateUsername' => Expected::once(function () {
-                    return true;
-                }),
-                'validateEmail' => Expected::once(function () {
-                    return true;
-                }),
-                'validatePhone' => Expected::once(function () {
-                    return true;
-                }),
-            ));
+                'validateUsername' => Expected::once(true),
+                'validateEmail' => Expected::once(true),
+                'validatePhone' => Expected::once(true),
+            )
+        );
         $user = new User4($validator, $this->fields);
         assertInstanceOf('User4', $user);
         assertEquals('BobRay', $user->get('username'));
@@ -64,16 +59,11 @@ class T5_UserMockingTest extends \Codeception\Test\Unit
     public function testConstructorAllBad() {
         $validator = $this->make(Validator::class,
             array(
-                'validateUsername' => Expected::once(function () {
-                    return false;
-                }),
-                'validateEmail' => Expected::once(function () {
-                    return false;
-                }),
-                'validatePhone' => Expected::once(function () {
-                    return false;
-                }),
-            ));
+                'validateUsername' => Expected::once(false),
+                'validateEmail' => Expected::once(false),
+                'validatePhone' => Expected::once(false),
+            )
+        );
         $fields = $this->fields;
         $fields['invalidField'] = '';
         $user = new User4($validator, $fields);
@@ -91,17 +81,11 @@ class T5_UserMockingTest extends \Codeception\Test\Unit
     public function testConstructorAllGood() {
         $validator = $this->make(Validator::class,
             array(
-                'validateUsername' => Expected::once(function () {
-                    return true;
-                }),
-                'validateEmail' => Expected::once(function () {
-                    return true;
-                }),
-                'validatePhone' => Expected::once(function () {
-                    return true;
-                }),
-
-            ));
+                'validateUsername' => Expected::once(true),
+                'validateEmail' => Expected::once(true),
+                'validatePhone' => Expected::once(true),
+            )
+        );
 
         $user = new User4($validator, $this->fields);
 
@@ -115,16 +99,11 @@ class T5_UserMockingTest extends \Codeception\Test\Unit
 
         $validator = $this->make(Validator::class,
             array(
-                'validateUsername' => Expected::once(function () {
-                    return false;
-                }),
-                'validateEmail' => Expected::once(function () {
-                    return true;
-                }),
-                'validatePhone' => Expected::once(function () {
-                    return true;
-                }),
-            ));
+                'validateUsername' => Expected::once(false),
+                'validateEmail' => Expected::once(true),
+                'validatePhone' => Expected::once(true),
+            )
+        );
 
         $user = new User4($validator, $this->fields);
 
@@ -140,16 +119,11 @@ class T5_UserMockingTest extends \Codeception\Test\Unit
 
         $validator = $this->make(Validator::class,
             array(
-                'validateEmail' => Expected::once(function () {
-                    return false;
-                }),
-                'validateUsername' => Expected::once(function () {
-                    return true;
-                }),
-                'validatePhone' => Expected::once(function () {
-                    return true;
-                }),
-            ));
+                'validateEmail' => Expected::once(false),
+                'validateUsername' => Expected::once(true),
+                'validatePhone' => Expected::once(true),
+            )
+        );
 
         $user = new User4($validator, $this->fields);
 
@@ -164,16 +138,11 @@ class T5_UserMockingTest extends \Codeception\Test\Unit
     public function testConstructorBadPhoneOnly() {
         $validator = $this->make(Validator::class,
             array(
-                'validateEmail' => Expected::once(function () {
-                    return true;
-                }),
-                'validateUsername' => Expected::once(function () {
-                    return true;
-                }),
-                'validatePhone' => Expected::once(function () {
-                    return false;
-                }),
-            ));
+                'validateEmail' => Expected::once(true),
+                'validateUsername' => Expected::once(true),
+                'validatePhone' => Expected::once(false),
+            )
+        );
 
         $user = new User4($validator, $this->fields);
 
@@ -188,16 +157,11 @@ class T5_UserMockingTest extends \Codeception\Test\Unit
 
         $validator = $this->make(Validator::class,
             array(
-                'validateEmail' => Expected::once(function () {
-                    return true;
-                }),
-                'validateUsername' => Expected::once(function () {
-                    return true;
-                }),
-                'validatePhone' => Expected::exactly(1,function () {
-                    return true;
-                }),
-            ));
+                'validateEmail' => Expected::once(true),
+                'validateUsername' => Expected::once(true),
+                'validatePhone' => Expected::exactly(1,true),
+            )
+        );
 
         $fields = $this->fields;
         $fields['invalidField'] = '';
@@ -207,11 +171,5 @@ class T5_UserMockingTest extends \Codeception\Test\Unit
         $errors = $user->getErrors();
         assertEquals(1, count($errors), print_r($errors, true));
         assertContains('Unknown field', $errors);
-    }
-
-    // tests
-    public function testSomeFeature()
-    {
-
     }
 }

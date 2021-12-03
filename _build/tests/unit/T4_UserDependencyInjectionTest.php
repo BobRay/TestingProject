@@ -46,7 +46,7 @@ class T4_UserDependencyInjectionTest extends \Codeception\Test\Unit {
 
     /** @throws Exception */
     public function testConstructorNoParams() {
-        $validator = $this->make(Validator::class,$this->fields);;
+        $validator = $this->make(Validator::class,$this->fields);
         $user = new User4($validator);
         assertEquals('', $user->get('username'));
         assertEquals('', $user->get('email'));

@@ -92,7 +92,7 @@ class T6_UserTest extends \Codeception\Test\Unit
           if (!$this->validator->validateEmail($email)) {
               assertContains('Invalid email', $errors, print_r($errors, true));
           }
-          if (!$this->validator->validateUsername($phone)) {
+          if (!$this->validator->validatePhone($phone)) {
               assertContains('Invalid phone', $errors, print_r($errors, true));
           }
       }
